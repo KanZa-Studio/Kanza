@@ -1,3 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-const f14 = TextStyle(fontSize: 14);
+final f24Bold = GoogleFonts.corben(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
