@@ -20,6 +20,9 @@ class HomeTopBar extends StatelessWidget {
             children: [
               SizedBox(height: context.screenHeight * 0.02),
               InkWell(
+                onTap: () {
+                  Scaffold.of(context).openDrawer();
+                },
                 child: Icon(Icons.menu, color: Colors.white),
               ),
               SizedBox(height: context.screenHeight * 0.05),
