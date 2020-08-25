@@ -1,13 +1,8 @@
-class _AssetsFonts {
-  const _AssetsFonts._();
-
-  final String gitkeep = 'assets/fonts/.gitkeep';
-}
-
 class _AssetsIcons {
   const _AssetsIcons._();
 
-  final String gitkeep = 'assets/icons/.gitkeep';
+  final String archive = 'assets/icons/archive.svg';
+  final String bin = 'assets/icons/bin.svg';
 }
 
 class _AssetsLangs {
@@ -21,8 +16,6 @@ class Assets {
   const Assets._();
 
 
-  /// fonts used in app
-  static const fonts = _AssetsFonts._();
   /// icons used in app
   static const icons = _AssetsIcons._();
   /// langs used in app

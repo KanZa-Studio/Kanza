@@ -9,6 +9,7 @@ class KanzaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: defaultTheme,
       locale: const Locale('en', 'US'),
       supportedLocales: [

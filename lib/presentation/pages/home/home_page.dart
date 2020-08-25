@@ -1,55 +1,53 @@
 import 'package:flutter/material.dart';
-import './home_top_bar.dart';
-import '../../values/colors.dart';
+import 'package:kanza/presentation/widgets/custom_drawer.dart';
+
+import './widgets/custom_fab_button.dart';
+import './widgets/todo_item.dart';
+import '../../../data/mocks.dart';
+import 'widgets/category_item.dart';
+import 'widgets/home_top_bar.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: CustomDrawer(),
       body: Column(
         children: [
           const HomeTopBar(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           SizedBox(
-            height: 55,
+            height: 53,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, i) => Container(
-                width: 100,
-                margin: EdgeInsets.only(left: i == 0 ? 16 : 8, right: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                decoration: BoxDecoration(
-                  color: i % 2 == 0
-                      ? category1
-                      : (i % 3 == 0 ? category2 : category3),
-                  borderRadius: BorderRadius.circular(6.0),
-                ),
-                child: Center(
-                  child: Text(
-                    i % 2 == 0 ? 'WORK' : (i % 3 == 0 ? 'PERSONAL' : 'CINEMA'),
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+              itemBuilder: (context, i) => CategoryItem(
+                title: mockCategories[i].title,
+                color: mockCategories[i].color,
+                isAddButton: i == 0,
+              ),
+              itemCount: mockCategories.length,
+            ),
+          ),
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: const SizedBox(height: 32)),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (_, i) => TodoItem(
+                      title: 'Title $i',
+                      subtitle: 'Subtitle: $i',
                     ),
-                    overflow: TextOverflow.clip,
-                    maxLines: 1,
+                    childCount: 5,
                   ),
                 ),
-              ),
-              itemCount: 5,
+              ],
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(
-          Icons.add,
-          size: 35,
-          semanticLabel: 'Add To-do',
-        ),
-      ),
+      floatingActionButton: CustomFabButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
     );
   }
 }
