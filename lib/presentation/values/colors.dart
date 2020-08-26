@@ -17,3 +17,9 @@ const Color fabShadowColor = Color.fromRGBO(1, 118, 225, 0.35);
 const Color todoItemSubtitleColor = Color(0xFF4E4E4E);
 
 const Color drawerItemUnselectedColor = Color(0xFFA4A4A4);
+
+const Color todoItemBackgroundColor = Color(0xFFF8F8F8);
+
+const Color bottomSheetHandlerColor = Color(0xFFDBDBDB);
+
+const Color textFieldHintColor = Color(0xFFC4C4C4);

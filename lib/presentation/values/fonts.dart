@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './colors.dart';
+
 const f24W900 = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w900,
@@ -29,3 +31,14 @@ const f40W900 = TextStyle(
   fontWeight: FontWeight.w900,
 );
 
+const f60W900 = TextStyle(
+  fontSize: 60,
+  fontWeight: FontWeight.w900,
+  color: Colors.white,
+);
+
+const f14W500 = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+  color: textFieldHintColor,
+);

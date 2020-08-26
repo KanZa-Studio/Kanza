@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../data/models/todo.dart';
 import '../../../../utils/constants/assets.dart';
 import '../../../values/colors.dart';
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({
-    this.title,
-    this.subtitle,
-  });
+  const TodoItem({this.todo});
 
-  final String title;
-  final String subtitle;
+  final Todo todo;
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey(title),
+      movementDuration: Duration(seconds: 1),
+      key: ValueKey(todo.id),
+      confirmDismiss: (direction) async => false,
       background: Row(
         children: [
           Padding(
@@ -25,6 +24,19 @@ class TodoItem extends StatelessWidget {
               Assets.icons.archive,
               width: 17,
               height: 17,
+            ),
+          ),
+        ],
+      ),
+      secondaryBackground: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: SvgPicture.asset(
+              Assets.icons.bin,
+              width: 20,
+              height: 20,
             ),
           ),
         ],
@@ -38,7 +50,7 @@ class TodoItem extends StatelessWidget {
               height: 76,
               width: 10,
               decoration: BoxDecoration(
-                color: category2,
+                color: todo.category.color,
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
@@ -48,7 +60,7 @@ class TodoItem extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Color(0xFFF8F8F8),
+                  color: const Color(0xFFF8F8F8),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -59,14 +71,24 @@ class TodoItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Lorem Ipsum',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          todo.title,
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                decoration: todo.isDone
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                                color: todo.isDone
+                                    ? todoItemSubtitleColor
+                                    : Colors.black,
+                              ),
                         ),
                         Text(
-                          'Lorem Ipsum',
+                          todo.details,
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.normal,
                                 color: todoItemSubtitleColor,
+                                decoration: todo.isDone
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
                               ),
                         ),
                       ],
@@ -81,6 +103,11 @@ class TodoItem extends StatelessWidget {
                         ),
                         shape: BoxShape.circle,
                       ),
+                      child: todo.isDone
+                          ? Center(
+                              child: SvgPicture.asset(Assets.icons.approve),
+                            )
+                          : SizedBox(),
                     ),
                   ],
                 ),

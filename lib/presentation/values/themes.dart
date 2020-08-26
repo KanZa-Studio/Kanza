@@ -12,6 +12,8 @@ final defaultTheme = ThemeData(
     caption: f12W500,
     headline6: f22W900,
     bodyText1: f16w500,
+    bodyText2: f14W500,
     headline3: f40W900,
+    headline2: f60W900,
   ),
 );

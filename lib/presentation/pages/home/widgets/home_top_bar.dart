@@ -35,7 +35,7 @@ class HomeTopBar extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Text(
-                'HELLO, ZAHİR',
+                'HELLO, KANAN',
                 style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(height: 22),

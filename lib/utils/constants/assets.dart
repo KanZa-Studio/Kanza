@@ -1,6 +1,7 @@
 class _AssetsIcons {
   const _AssetsIcons._();
 
+  final String approve = 'assets/icons/approve.svg';
   final String archive = 'assets/icons/archive.svg';
   final String bin = 'assets/icons/bin.svg';
 }
