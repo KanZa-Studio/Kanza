@@ -8,7 +8,7 @@ import '../../../values/colors.dart';
 class TodoItem extends StatelessWidget {
   const TodoItem({this.todo});
 
-  final TodoData todo;
+  final TodoEntitiy todo;
 
   @override
   Widget build(BuildContext context) {

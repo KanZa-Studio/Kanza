@@ -71,16 +71,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: StreamBuilder<List<TodoData>>(
+            child: StreamBuilder<List<TodoWithCategory>>(
               stream: todoDao.watchAllTodo(),
               builder: (context, todoListSnapshot) {
-                final allTodo = todoListSnapshot.data ?? List();
+                final allTodoWithCategory = todoListSnapshot.data ?? List();
 
                 return ListView.builder(
                   controller: scrollController,
                   itemBuilder: (context, index) =>
-                      TodoItem(todo: allTodo[index]),
-                  itemCount: allTodo.length,
+                      TodoItem(todo: allTodoWithCategory[index].todoData),
+                  itemCount: allTodoWithCategory.length,
                 );
               },
             ),
