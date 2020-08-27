@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:kanza/data/services/database_service.dart';
 import 'package:kanza/presentation/pages/home/widgets/todo_item.dart';
 
 import './widgets/custom_fab_button.dart';
@@ -17,6 +18,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final scrollController = ScrollController();
   AnimationController animationController;
   Animation animation;
+
+  final TodoDao todoDao = TodoDao(KanzaDatabase());
 
   @override
   void initState() {
@@ -68,11 +71,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: ListView.builder(
-              controller: scrollController,
-              itemBuilder: (context, index) =>
-                  TodoItem(todo: mockTodoList[index]),
-              itemCount: mockTodoList.length,
+            child: StreamBuilder<List<TodoData>>(
+              stream: todoDao.watchAllTodo(),
+              builder: (context, todoListSnapshot) {
+                final allTodo = todoListSnapshot.data ?? List();
+
+                return ListView.builder(
+                  controller: scrollController,
+                  itemBuilder: (context, index) =>
+                      TodoItem(todo: allTodo[index]),
+                  itemCount: allTodo.length,
+                );
+              },
             ),
           ),
         ],
