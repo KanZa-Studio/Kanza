@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:kanza/data/services/database_service.dart';
-import 'package:kanza/presentation/pages/home/widgets/todo_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './widgets/custom_fab_button.dart';
 import '../../../data/mocks.dart';
 import '../../widgets/custom_drawer.dart';
 import 'widgets/category_item.dart';
 import 'widgets/home_top_bar.dart';
+import '../../../blocs/category_cubit/category_cubit.dart';
+import '../../../data/services/database_service.dart';
+import './widgets/todo_item.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,8 +20,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final scrollController = ScrollController();
   AnimationController animationController;
   Animation animation;
-
-  final TodoDao todoDao = TodoDao(KanzaDatabase());
 
   @override
   void initState() {
@@ -58,31 +58,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         children: [
           const HomeTopBar(),
           const SizedBox(height: 24),
-          SizedBox(
-            height: 53,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, i) => CategoryItem(
-                todoCategory: mockCategories[i],
-                isAddButton: i == 0,
-              ),
-              itemCount: mockCategories.length,
-            ),
-          ),
+          SizedBox(height: 53, child: _buildCategoriesWidget()),
           const SizedBox(height: 8),
           Expanded(
-            child: StreamBuilder<List<TodoWithCategory>>(
-              stream: todoDao.watchAllTodo(),
-              builder: (context, todoListSnapshot) {
-                final allTodoWithCategory = todoListSnapshot.data ?? List();
-
-                return ListView.builder(
-                  controller: scrollController,
-                  itemBuilder: (context, index) =>
-                      TodoItem(todo: allTodoWithCategory[index].todoData),
-                  itemCount: allTodoWithCategory.length,
-                );
-              },
+            child: ListView.builder(
+              controller: scrollController,
+              itemBuilder: (context, index) =>
+                  TodoItem(todo: mockTodoList[index]),
+              itemCount: mockTodoList.length,
             ),
           ),
         ],
@@ -92,6 +75,37 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: CustomFabButton(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
+    );
+  }
+
+  /// builds horizontal [categories] list of [HomePage]
+  Widget _buildCategoriesWidget() {
+    return BlocBuilder<CategoryCubit, CategoryState>(
+      builder: (context, state) {
+        /// for [Add] button
+        final categories = [TodoCategoryEntity(name: null)];
+
+        if (state.categoryStatus == CategoryStatus.success) {
+          return StreamBuilder<List<TodoCategoryEntity>>(
+              stream: state.allCategoriesStream,
+              builder: (context, snapshot) {
+                /// loads [add button] and [all other items]
+                categories.removeWhere((element) => element.name != null);
+                categories.addAll(snapshot.data ?? []);
+
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, i) => CategoryItem(
+                    todoCategory: categories[i],
+                  ),
+                  itemCount: categories.length,
+                );
+              });
+        } else {
+          /// when the [state] is [initial]
+          return SizedBox();
+        }
+      },
     );
   }
 

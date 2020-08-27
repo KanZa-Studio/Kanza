@@ -1,36 +1,58 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../data/models/todo_category.dart';
+import '../../../../data/services/database_service.dart';
+import '../../../dialogs/category_dialog.dart';
+import '../../../../utils/extensions/color_extension.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({
-    this.todoCategory,
-    this.isAddButton = false,
-  });
+  const CategoryItem({this.todoCategory});
 
-  final TodoCategory todoCategory;
-  final bool isAddButton;
+  final TodoCategoryEntity todoCategory;
 
   @override
   Widget build(BuildContext context) {
-    return todoCategory == null
-        ? SizedBox(width: 4)
+    final isAddButton = todoCategory.name == null;
+
+    return isAddButton
+        ? Container(
+            width: 65,
+            margin: const EdgeInsets.only(left: 16, right: 4),
+            child: Material(
+              borderRadius: BorderRadius.circular(6.0),
+              color: Theme.of(context).primaryColor,
+              child: InkWell(
+                onTap: () {
+                  showDialog(context: context, child: CategoryDialog());
+                },
+                borderRadius: BorderRadius.circular(6.0),
+                child: Center(
+                  child: Text(
+                    'Add',
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(color: Colors.white),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+              ),
+            ),
+          )
         : Container(
-            width: isAddButton ? 55 : 96,
+            width: 96,
             height: 53,
-            margin: EdgeInsets.only(left: isAddButton ? 16 : 4, right: 4),
+            margin: EdgeInsets.only(left: 4, right: 4),
             decoration: BoxDecoration(
               color: isAddButton
                   ? Theme.of(context).primaryColor
-                  : todoCategory.color,
+                  : todoCategory.color.toColor(),
               borderRadius: BorderRadius.circular(6.0),
             ),
             child: Center(
               child: Text(
-                isAddButton ? 'Add' : todoCategory.title,
-                style: Theme.of(context).textTheme.caption.copyWith(
-                      color: isAddButton ? Colors.white : Colors.black,
-                    ),
+                todoCategory.name,
+                style: Theme.of(context).textTheme.caption,
                 overflow: TextOverflow.clip,
                 maxLines: 1,
               ),

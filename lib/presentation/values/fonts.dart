@@ -42,3 +42,9 @@ const f14W500 = TextStyle(
   fontWeight: FontWeight.w500,
   color: textFieldHintColor,
 );
+
+const f20W500 = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  color: Colors.black,
+);

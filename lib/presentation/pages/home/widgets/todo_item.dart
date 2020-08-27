@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanza/data/services/database_service.dart';
+import 'package:kanza/data/models/todo.dart';
 
 import '../../../../utils/constants/assets.dart';
 import '../../../values/colors.dart';
@@ -8,7 +8,7 @@ import '../../../values/colors.dart';
 class TodoItem extends StatelessWidget {
   const TodoItem({this.todo});
 
-  final TodoEntitiy todo;
+  final Todo todo;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class TodoItem extends StatelessWidget {
               height: 76,
               width: 10,
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: todo.category.color,
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
@@ -73,10 +73,10 @@ class TodoItem extends StatelessWidget {
                         Text(
                           todo.title,
                           style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                decoration: todo.completed
+                                decoration: todo.isDone
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
-                                color: todo.completed
+                                color: todo.isDone
                                     ? todoItemSubtitleColor
                                     : Colors.black,
                               ),
@@ -86,7 +86,7 @@ class TodoItem extends StatelessWidget {
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.normal,
                                 color: todoItemSubtitleColor,
-                                decoration: todo.completed
+                                decoration: todo.isDone
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
                               ),
@@ -103,7 +103,7 @@ class TodoItem extends StatelessWidget {
                         ),
                         shape: BoxShape.circle,
                       ),
-                      child: todo.completed
+                      child: todo.isDone
                           ? Center(
                               child: SvgPicture.asset(Assets.icons.approve),
                             )

@@ -95,10 +95,10 @@ class TodoCategoryDao extends DatabaseAccessor<KanzaDatabase>
   Future<int> insertTodoCategory(Insertable<TodoCategoryEntity> category) =>
       into(todoCategory).insert(category);
 
-  Future<bool> updateTodo(Insertable<TodoCategoryEntity> category) =>
+  Future<bool> updateTodoCategory(Insertable<TodoCategoryEntity> category) =>
       update(todoCategory).replace(category);
 
-  Future<int> deleteTodo(Insertable<TodoCategoryEntity> todoData) =>
+  Future<int> deleteTodoCategory(Insertable<TodoCategoryEntity> todoData) =>
       delete(todoCategory).delete(todoData);
 }
 
