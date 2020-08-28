@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kanza/presentation/pages/home/home_page.dart';
-
+import '../../../utils/constants/language_keys.dart';
+import '../../../utils/extensions/translator.dart';
+import '../home/home_page.dart';
 import '../../values/colors.dart';
 
 class LoginPage extends StatelessWidget {
@@ -15,20 +16,20 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Welcome to Kanza',
+                  LanguageKeys.welcomeToKanza,
                   style: Theme.of(context).textTheme.headline5.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
-                ),
+                ).tr(),
                 const SizedBox(height: 8),
                 Text(
-                  'Kanza is to create list of\nthings to do ',
+                  LanguageKeys.kanzaDescription,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
                   textAlign: TextAlign.center,
-                ),
+                ).tr(),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 72,
@@ -39,7 +40,7 @@ class LoginPage extends StatelessWidget {
                   child: TextField(
                     autofocus: false,
                     decoration: InputDecoration(
-                      hintText: 'Username',
+                      hintText: LanguageKeys.username.tr(),
                       hintStyle: Theme.of(context).textTheme.bodyText2,
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -64,11 +65,11 @@ class LoginPage extends StatelessWidget {
                       height: 42,
                       child: Center(
                         child: Text(
-                          'Continue',
+                          LanguageKeys.continueLogin,
                           style: Theme.of(context).textTheme.bodyText2.copyWith(
                                 color: Colors.white,
                               ),
-                        ),
+                        ).tr(),
                       ),
                     ),
                   ),
