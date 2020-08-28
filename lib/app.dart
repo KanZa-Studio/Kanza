@@ -11,6 +11,7 @@ import './data/repositories/category_repository.dart';
 import './data/services/database_service.dart';
 import './data/repositories/auth_repository.dart';
 import './blocs/auth_cubit/auth_cubit.dart';
+import './blocs/category_operations_cubit/category_operations_cubit.dart';
 
 class KanzaApp extends StatelessWidget {
   @override
@@ -29,6 +30,10 @@ class KanzaApp extends StatelessWidget {
               context.repository<AuthRepository>(),
             )..initAuth(),
           ),
+          BlocProvider<CategoryOperationsCubit>(
+            create: (context) => CategoryOperationsCubit(
+                context.repository<CategoryRepository>()),
+          ),
           BlocProvider<CategoryCubit>(
             create: (context) => CategoryCubit(
               categoryRepository: context.repository<CategoryRepository>(),
@@ -38,9 +43,10 @@ class KanzaApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: defaultTheme,
-          locale: const Locale('en', 'US'),
+          locale: const Locale('az', 'AZ'),
           supportedLocales: [
             Locale('en', 'US'),
+            Locale('az', 'AZ'),
           ],
           localizationsDelegates: [
             AppLocalizations.delegate,

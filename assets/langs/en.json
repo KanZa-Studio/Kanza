@@ -19,5 +19,6 @@
     "archives": "Archives",
     "share_app": "Share App",
     "about": "about",
-    "login_failed": "Error occured, please try again!"
+    "login_failed": "Error occured, please try again!",
+    "category_add_fail": "There is already category with this name!"
 }
