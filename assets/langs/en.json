@@ -18,5 +18,6 @@
     "edit_categories": "Edit categories",
     "archives": "Archives",
     "share_app": "Share App",
-    "about": "about"
+    "about": "about",
+    "login_failed": "Error occured, please try again!"
 }

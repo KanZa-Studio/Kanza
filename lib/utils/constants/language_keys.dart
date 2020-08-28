@@ -10,6 +10,9 @@
   ///  EN: Pick date
  const String pickDate = 'pick_date';
 
+  ///  EN: Error occured, please try again!
+ const String loginFailed = 'login_failed';
+
   ///  EN: Archives
  const String archives = 'archives';
 

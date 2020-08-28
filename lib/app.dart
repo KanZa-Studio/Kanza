@@ -9,18 +9,26 @@ import './utils/localization_helper/localization_helper.dart';
 import './blocs/category_cubit/category_cubit.dart';
 import './data/repositories/category_repository.dart';
 import './data/services/database_service.dart';
+import './data/repositories/auth_repository.dart';
+import './blocs/auth_cubit/auth_cubit.dart';
 
 class KanzaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<AuthRepository>(create: (_) => AuthRepository()),
         RepositoryProvider<CategoryRepository>(
           create: (_) => CategoryRepository(KanzaDatabase()),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<AuthCubit>(
+            create: (context) => AuthCubit(
+              context.repository<AuthRepository>(),
+            )..initAuth(),
+          ),
           BlocProvider<CategoryCubit>(
             create: (context) => CategoryCubit(
               categoryRepository: context.repository<CategoryRepository>(),

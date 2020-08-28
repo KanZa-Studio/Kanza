@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kanza/blocs/category_cubit/category_cubit.dart';
-import 'package:kanza/data/services/database_service.dart';
 import '../../utils/extensions/responsive_helper.dart';
-import '../../utils/extensions/color_extension.dart';
 import '../values/colors.dart';
 
 class CategoryDialog extends StatefulWidget {
@@ -20,7 +16,6 @@ class _CategoryDialogState extends State<CategoryDialog> {
   Widget build(BuildContext context) {
     final screenWidth = context.screenWidth;
     final screenHeight = context.screenHeight;
-    final categoryCubit = BlocProvider.of<CategoryCubit>(context);
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(36)),

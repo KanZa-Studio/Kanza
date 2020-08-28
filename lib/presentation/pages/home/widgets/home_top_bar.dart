@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../values/colors.dart';
+import '../../../../blocs/auth_cubit/auth_cubit.dart';
+import '../../../../utils/constants/language_keys.dart';
+import '../../../../utils/extensions/translator.dart';
 
 class HomeTopBar extends StatelessWidget {
   const HomeTopBar();
@@ -23,29 +27,31 @@ class HomeTopBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(16),
-                    onTap: () {
-                      Scaffold.of(context).openDrawer();
-                    },
+                    onTap: () => Scaffold.of(context).openDrawer(),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Icon(Icons.menu, color: Colors.white),
                     ),
                   ),
                 ),
-                const SizedBox(width: 11),
                 Text(
-                  'kanza.',
+                  kanza,
                   style: Theme.of(context).textTheme.headline6,
-                ),
+                ).tr(),
               ],
             ),
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
-              child: Text(
-                'HELLO, KANAN',
-                style: Theme.of(context).textTheme.headline5,
-              ),
+              child:
+                  BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+                final username = state.username ?? '';
+
+                return Text(
+                  '${hello.tr()}, ${username.toUpperCase()}',
+                  style: Theme.of(context).textTheme.headline5,
+                );
+              }),
             ),
             const SizedBox(height: 22),
           ],
