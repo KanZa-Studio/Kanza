@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../utils/extensions/responsive_helper.dart';
 import '../values/colors.dart';
+import '../../utils/constants/language_keys.dart';
+import '../../utils/extensions/translator.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -17,11 +19,11 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(height: context.screenHeight * 0.07),
               Center(
                 child: Text(
-                  'kanza.',
+                  kanza,
                   style: Theme.of(context).textTheme.headline3.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
-                ),
+                ).tr(),
               ),
               SizedBox(height: context.screenHeight * 0.13),
               Expanded(
@@ -30,15 +32,15 @@ class CustomDrawer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildItem(context, 'Home', true),
+                      _buildItem(context, home, true),
                       SizedBox(height: context.screenHeight * 0.03),
-                      _buildItem(context, 'Edit Categories'),
+                      _buildItem(context, editCategories),
                       SizedBox(height: context.screenHeight * 0.03),
-                      _buildItem(context, 'Archives'),
+                      _buildItem(context, archives),
                       SizedBox(height: context.screenHeight * 0.03),
-                      _buildItem(context, 'Share App'),
+                      _buildItem(context, shareApp),
                       Spacer(),
-                      _buildItem(context, 'About'),
+                      _buildItem(context, about),
                       SizedBox(height: 25),
                     ],
                   ),
@@ -57,7 +59,7 @@ class CustomDrawer extends StatelessWidget {
     bool isSelected = false,
   ]) {
     return Text(
-      title,
+      title.tr(),
       style: Theme.of(context).textTheme.bodyText1.copyWith(
             color: isSelected ? Colors.black : drawerItemUnselectedColor,
           ),

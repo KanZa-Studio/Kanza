@@ -1,63 +1,59 @@
-/// provides keys of [Langauge Jsons]
-class LanguageKeys {
-  const LanguageKeys._();
   ///  EN: Kanza is to create list of things to do
-  static const String kanzaDescription = 'kanza_description';
+ const String kanzaDescription = 'kanza_description';
 
   ///  EN: add
-  static const String add = 'add';
+ const String add = 'add';
 
   ///  EN: Edit categories
-  static const String editCategories = 'edit_categories';
+ const String editCategories = 'edit_categories';
 
   ///  EN: Pick date
-  static const String pickDate = 'pick_date';
+ const String pickDate = 'pick_date';
 
   ///  EN: Archives
-  static const String archives = 'archives';
+ const String archives = 'archives';
 
   ///  EN: save
-  static const String save = 'save';
+ const String save = 'save';
 
   ///  EN: colors
-  static const String color = 'color';
+ const String color = 'color';
 
   ///  EN: about
-  static const String about = 'about';
+ const String about = 'about';
 
   ///  EN: Category
-  static const String category = 'category';
+ const String category = 'category';
 
   ///  EN: home
-  static const String home = 'home';
+ const String home = 'home';
 
   ///  EN: Share App
-  static const String shareApp = 'share_app';
+ const String shareApp = 'share_app';
 
   ///  EN: Welcome to Kanza
-  static const String welcomeToKanza = 'welcome_to_kanza';
+ const String welcomeToKanza = 'welcome_to_kanza';
 
   ///  EN: kanza.
-  static const String kanza = 'kanza';
+ const String kanza = 'kanza';
 
   ///  EN: Details
-  static const String details = 'details';
+ const String details = 'details';
 
   ///  EN: Username
-  static const String username = 'username';
+ const String username = 'username';
 
   ///  EN: Continue
-  static const String continueLogin = 'continue_login';
+ const String continueLogin = 'continue_login';
 
   ///  EN: Today
-  static const String today = 'today';
+ const String today = 'today';
 
   ///  EN: Tomorrow
-  static const String tomorrow = 'tomorrow';
+ const String tomorrow = 'tomorrow';
 
   ///  EN: HELLO
-  static const String hello = 'hello';
+ const String hello = 'hello';
 
   ///  EN: Title
-  static const String title = 'title';
-}
+ const String title = 'title';

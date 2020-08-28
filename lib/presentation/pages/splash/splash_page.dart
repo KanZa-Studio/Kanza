@@ -29,7 +29,7 @@ class _SplashPageState extends State<SplashPage> {
       backgroundColor: Theme.of(context).primaryColor,
       body: Center(
         child: Text(
-          LanguageKeys.kanza,
+          kanza,
           style: Theme.of(context).textTheme.headline2,
         ).tr(),
       ),

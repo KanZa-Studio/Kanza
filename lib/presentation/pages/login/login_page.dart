@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  LanguageKeys.welcomeToKanza,
+                  welcomeToKanza,
                   style: Theme.of(context).textTheme.headline5.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
                 ).tr(),
                 const SizedBox(height: 8),
                 Text(
-                  LanguageKeys.kanzaDescription,
+                  kanzaDescription,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
@@ -40,7 +40,7 @@ class LoginPage extends StatelessWidget {
                   child: TextField(
                     autofocus: false,
                     decoration: InputDecoration(
-                      hintText: LanguageKeys.username.tr(),
+                      hintText: username.tr(),
                       hintStyle: Theme.of(context).textTheme.bodyText2,
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                       height: 42,
                       child: Center(
                         child: Text(
-                          LanguageKeys.continueLogin,
+                          continueLogin,
                           style: Theme.of(context).textTheme.bodyText2.copyWith(
                                 color: Colors.white,
                               ),

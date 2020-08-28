@@ -80,10 +80,6 @@ void _generateFile() async {
     /// to perform fast String concatenation
     final sb = StringBuffer();
 
-    /// decalares class
-    sb.writeln('/// provides keys of [Langauge Jsons]\n'
-        'class LanguageKeys {\n  const LanguageKeys._();');
-
     for (var i = 0; i < valueKeys.length; i++) {
       final currentKey = valueKeys.elementAt(i);
 
@@ -97,18 +93,15 @@ void _generateFile() async {
 
         sb.writeln(
           '  /// ${isCurrentLangFileContainsCurentKey ? '' : '!'}'
-          ' ${langCode.toUpperCase()}: $message',
+          ' ${langCode.toUpperCase()}: ${message.replaceAll('\n', ' ')}',
         );
       }
-      sb.writeln(
-          '  static const String ${currentKey.capitalize} = \'$currentKey\';');
+      sb.writeln(' const String ${currentKey.capitalize} = \'$currentKey\';');
 
       if (i != valueKeys.length - 1) {
         sb.writeln();
       }
     }
-
-    sb.writeln('}');
 
     /// write all data to [langauge_keys.dart] file in [utils/constants] directory
     var file = File(output);
