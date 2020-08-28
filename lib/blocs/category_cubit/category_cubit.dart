@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -16,23 +14,12 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   final BaseCategoryRepository categoryRepository;
 
-  final _errorMessageController = StreamController<String>.broadcast();
-  Stream<String> get errorMessage => _errorMessageController.stream;
-
-  void fetchAllCategories() => emit(CategoryState.success(
-      allCategoriesStream: categoryRepository.getAllCategory()));
-
-  void addNewCategory(TodoCategoryEntity category) {
+  void fetchAllCategories() async {
     try {
-      categoryRepository.addCategory(category);
+      final categories = await categoryRepository.getAllCategories();
+      emit(CategoryState.success(categories: categories));
     } on Exception {
-      _errorMessageController.add('Element already exists!');
+      emit(CategoryState.failure('failed to load categories!'));
     }
-  }
-
-  @override
-  Future<void> close() {
-    _errorMessageController?.close();
-    return super.close();
   }
 }

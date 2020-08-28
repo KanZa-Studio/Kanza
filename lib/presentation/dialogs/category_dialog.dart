@@ -85,12 +85,6 @@ class _CategoryDialogState extends State<CategoryDialog> {
                 borderRadius: BorderRadius.circular(23),
                 child: InkWell(
                   onTap: () {
-                    categoryCubit.addNewCategory(
-                      TodoCategoryEntity(
-                        name: titleController.text.toUpperCase(),
-                        color: selectedColor.toStringColor(),
-                      ),
-                    );
                     Navigator.of(context).pop();
                   },
                   borderRadius: BorderRadius.circular(23),

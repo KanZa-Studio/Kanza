@@ -9,8 +9,8 @@ class CategoryRepository implements BaseCategoryRepository {
   final KanzaDatabase kanzaDb;
 
   @override
-  Stream<List<TodoCategoryEntity>> getAllCategory() =>
-      kanzaDb.todoCategoryDao.watchAllCategories();
+  Future<List<TodoCategoryEntity>> getAllCategories() =>
+      kanzaDb.todoCategoryDao.getAllCategories();
 
   @override
   Future<int> addCategory(TodoCategoryEntity todoCategoryEntity) =>

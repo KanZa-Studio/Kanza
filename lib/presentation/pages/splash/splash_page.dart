@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kanza/presentation/pages/login/login_page.dart';
+import '../login/login_page.dart';
+import '../../../utils/constants/language_keys.dart';
+import '../../../utils/extensions/translator.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -27,9 +29,9 @@ class _SplashPageState extends State<SplashPage> {
       backgroundColor: Theme.of(context).primaryColor,
       body: Center(
         child: Text(
-          'kanza.',
+          LanguageKeys.kanza,
           style: Theme.of(context).textTheme.headline2,
-        ),
+        ).tr(),
       ),
     );
   }

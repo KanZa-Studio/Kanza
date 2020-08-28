@@ -31,7 +31,7 @@ class TodoDao extends DatabaseAccessor<KanzaDatabase> with _$TodoDaoMixin {
 
   final KanzaDatabase db;
 
-  Stream<List<TodoWithCategory>> watchAllTodo() {
+  Stream<List<TodoWithCategory>> getAllTodo() {
     return (select(todo)
           ..orderBy(
             [
@@ -83,13 +83,13 @@ class TodoCategoryDao extends DatabaseAccessor<KanzaDatabase>
 
   final KanzaDatabase db;
 
-  Stream<List<TodoCategoryEntity>> watchAllCategories() {
+  Future<List<TodoCategoryEntity>> getAllCategories() {
     return (select(todoCategory)
           ..orderBy([
             (t) =>
                 OrderingTerm(expression: t.createdAt, mode: OrderingMode.asc),
           ]))
-        .watch();
+        .get();
   }
 
   Future<int> insertTodoCategory(Insertable<TodoCategoryEntity> category) =>

@@ -80,31 +80,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   /// builds horizontal [categories] list of [HomePage]
   Widget _buildCategoriesWidget() {
-    return BlocBuilder<CategoryCubit, CategoryState>(
+    return BlocConsumer<CategoryCubit, CategoryState>(
+      listenWhen: (_, curr) => curr.categoryStatus == CategoryStatus.failure,
+      listener: (context, state) {
+        print('working');
+        Scaffold.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Row(
+                children: [
+                  Text(state.errorMessage),
+                ],
+              ),
+            ),
+          );
+      },
       builder: (context, state) {
-        /// for [Add] button
         final categories = [TodoCategoryEntity(name: null)];
 
         if (state.categoryStatus == CategoryStatus.success) {
-          return StreamBuilder<List<TodoCategoryEntity>>(
-              stream: state.allCategoriesStream,
-              builder: (context, snapshot) {
-                /// loads [add button] and [all other items]
-                categories.removeWhere((element) => element.name != null);
-                categories.addAll(snapshot.data ?? []);
-
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, i) => CategoryItem(
-                    todoCategory: categories[i],
-                  ),
-                  itemCount: categories.length,
-                );
-              });
-        } else {
-          /// when the [state] is [initial]
-          return SizedBox();
+          categories.addAll(state.categories);
         }
+
+        /// renders only add button if state is [failure] or [initial]
+        /// if the state if [success] it will load [categories]
+        return ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, i) =>
+              CategoryItem(todoCategory: categories[i]),
+          itemCount: categories.length,
+        );
       },
     );
   }

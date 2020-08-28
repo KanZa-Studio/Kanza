@@ -1,27 +1,27 @@
 part of 'category_cubit.dart';
 
-enum CategoryStatus {
-  initial,
-  progress,
-  failure,
-  success,
-}
+enum CategoryStatus { initial, failure, success }
 
 class CategoryState extends Equatable {
-  const CategoryState._([
+  const CategoryState._({
     this.categoryStatus = CategoryStatus.initial,
-    this.allCategoriesStream,
-  ]);
+    this.categories,
+    this.errorMessage,
+  });
 
   const CategoryState.initial() : this._();
 
-  const CategoryState.success(
-      {Stream<List<TodoCategoryEntity>> allCategoriesStream})
-      : this._(CategoryStatus.success, allCategoriesStream);
+  const CategoryState.success({List<TodoCategoryEntity> categories})
+      : this._(categoryStatus: CategoryStatus.success, categories: categories);
+
+  const CategoryState.failure(String errorMessage)
+      : this._(
+            categoryStatus: CategoryStatus.failure, errorMessage: errorMessage);
 
   final CategoryStatus categoryStatus;
-  final Stream<List<TodoCategoryEntity>> allCategoriesStream;
+  final List<TodoCategoryEntity> categories;
+  final String errorMessage;
 
   @override
-  List<Object> get props => [categoryStatus, allCategoriesStream];
+  List<Object> get props => [categoryStatus, categories];
 }
