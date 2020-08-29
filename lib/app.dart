@@ -12,6 +12,7 @@ import './data/services/database_service.dart';
 import './data/repositories/auth_repository.dart';
 import './blocs/auth_cubit/auth_cubit.dart';
 import './blocs/category_operations_cubit/category_operations_cubit.dart';
+import './presentation/router.dart';
 
 class KanzaApp extends StatelessWidget {
   @override
@@ -55,6 +56,7 @@ class KanzaApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          onGenerateRoute: Router.onGenerateRoute,
           builder: (context, child) {
             return ScrollConfiguration(
               behavior: MyBehaviour(),

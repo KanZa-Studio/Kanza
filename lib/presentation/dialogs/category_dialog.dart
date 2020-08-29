@@ -87,6 +87,9 @@ class _CategoryDialogState extends State<CategoryDialog> {
                             width: 1.5,
                           ),
                         ),
+                        errorText: state is CategoryOperationsFailure
+                            ? state.message
+                            : null,
                       ),
                     ),
                   ),
@@ -99,7 +102,7 @@ class _CategoryDialogState extends State<CategoryDialog> {
                     child: InkWell(
                       onTap: () =>
                           context.bloc<CategoryOperationsCubit>().addCategory(
-                                name: titleController.text,
+                                name: titleController.text.trim(),
                                 color: selectedColor,
                               ),
                       borderRadius: BorderRadius.circular(23),

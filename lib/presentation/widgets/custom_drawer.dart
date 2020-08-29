@@ -4,8 +4,14 @@ import '../../utils/extensions/responsive_helper.dart';
 import '../values/colors.dart';
 import '../../utils/constants/language_keys.dart';
 import '../../utils/extensions/translator.dart';
+import '../../utils/constants/routes.dart' as Routes;
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -27,23 +33,22 @@ class CustomDrawer extends StatelessWidget {
               ),
               SizedBox(height: context.screenHeight * 0.13),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildItem(context, home, true),
-                      SizedBox(height: context.screenHeight * 0.03),
-                      _buildItem(context, editCategories),
-                      SizedBox(height: context.screenHeight * 0.03),
-                      _buildItem(context, archives),
-                      SizedBox(height: context.screenHeight * 0.03),
-                      _buildItem(context, shareApp),
-                      Spacer(),
-                      _buildItem(context, about),
-                      SizedBox(height: 25),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildItem(context, home, isSelected: true),
+                    _buildItem(context, editCategories,
+                        onTap: () =>
+                            Navigator.pushNamed(context, Routes.editCategory)),
+                    _buildItem(context, archives,
+                        onTap: () =>
+                            Navigator.pushNamed(context, Routes.archives)),
+                    _buildItem(context, shareApp),
+                    Spacer(),
+                    _buildItem(context, about,
+                        onTap: () =>
+                            Navigator.pushNamed(context, Routes.about)),
+                  ],
                 ),
               ),
             ],
@@ -53,16 +58,34 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  Text _buildItem(
+  Widget _buildItem(
     BuildContext context,
-    String title, [
+    String title, {
     bool isSelected = false,
-  ]) {
-    return Text(
-      title.tr(),
-      style: Theme.of(context).textTheme.bodyText1.copyWith(
-            color: isSelected ? Colors.black : drawerItemUnselectedColor,
+    VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: Theme.of(context).primaryColorLight,
+        onTap: () {
+          Navigator.pop(context);
+          onTap?.call();
+        },
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: context.screenHeight * 0.015,
+            bottom: context.screenHeight * 0.015,
+            left: 30,
           ),
+          child: Text(
+            title.tr(),
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: isSelected ? Colors.black : drawerItemUnselectedColor,
+                ),
+          ),
+        ),
+      ),
     );
   }
 }
