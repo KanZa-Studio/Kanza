@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 
 import '../../data/contractors/base_category_repository.dart';

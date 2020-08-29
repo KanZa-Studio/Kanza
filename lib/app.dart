@@ -41,6 +41,7 @@ class KanzaApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          title: 'Kanza',
           debugShowCheckedModeBanner: false,
           theme: defaultTheme,
           locale: const Locale('az', 'AZ'),
