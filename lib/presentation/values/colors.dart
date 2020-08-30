@@ -12,17 +12,11 @@ const Color category3 = Color(0xFFFFDEDE);
 
 const Color category4 = Color(0xFFDEFFEF);
 
-const Color category5 = Color(0xFFFEDEFF);
+const Color todayTimeItemBackground = Color(0xFFFFDEDE);
 
-const Color category6 = Color(0xFFFFF2DE);
+const Color tomorrowTimeItemBackground = Color.fromRGBO(91, 177, 255, 0.35);
 
-const Color category7 = Color(0xFFFFCC91);
-
-const Color category8 = Color(0xFF79E8C0);
-
-const Color category9 = Color(0xFFFF5AEF);
-
-const Color category10 = Color(0xFFFA8181);
+const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);
 
 const Color fabShadowColor = Color.fromRGBO(1, 118, 225, 0.35);
 

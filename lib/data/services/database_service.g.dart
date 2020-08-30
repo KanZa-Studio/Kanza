@@ -13,16 +13,16 @@ class Task extends DataClass implements Insertable<Task> {
   final String details;
   final DateTime dueDate;
   final bool completed;
+  final bool archived;
   final DateTime createdAt;
-  final String categoryName;
   Task(
       {@required this.id,
       @required this.title,
       this.details,
       this.dueDate,
       @required this.completed,
-      @required this.createdAt,
-      this.categoryName});
+      @required this.archived,
+      @required this.createdAt});
   factory Task.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -40,10 +40,10 @@ class Task extends DataClass implements Insertable<Task> {
           .mapFromDatabaseResponse(data['${effectivePrefix}due_date']),
       completed:
           boolType.mapFromDatabaseResponse(data['${effectivePrefix}completed']),
+      archived:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}archived']),
       createdAt: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
-      categoryName: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}category_name']),
     );
   }
   @override
@@ -64,11 +64,11 @@ class Task extends DataClass implements Insertable<Task> {
     if (!nullToAbsent || completed != null) {
       map['completed'] = Variable<bool>(completed);
     }
+    if (!nullToAbsent || archived != null) {
+      map['archived'] = Variable<bool>(archived);
+    }
     if (!nullToAbsent || createdAt != null) {
       map['created_at'] = Variable<DateTime>(createdAt);
-    }
-    if (!nullToAbsent || categoryName != null) {
-      map['category_name'] = Variable<String>(categoryName);
     }
     return map;
   }
@@ -87,12 +87,12 @@ class Task extends DataClass implements Insertable<Task> {
       completed: completed == null && nullToAbsent
           ? const Value.absent()
           : Value(completed),
+      archived: archived == null && nullToAbsent
+          ? const Value.absent()
+          : Value(archived),
       createdAt: createdAt == null && nullToAbsent
           ? const Value.absent()
           : Value(createdAt),
-      categoryName: categoryName == null && nullToAbsent
-          ? const Value.absent()
-          : Value(categoryName),
     );
   }
 
@@ -105,8 +105,8 @@ class Task extends DataClass implements Insertable<Task> {
       details: serializer.fromJson<String>(json['details']),
       dueDate: serializer.fromJson<DateTime>(json['dueDate']),
       completed: serializer.fromJson<bool>(json['completed']),
+      archived: serializer.fromJson<bool>(json['archived']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-      categoryName: serializer.fromJson<String>(json['categoryName']),
     );
   }
   @override
@@ -118,8 +118,8 @@ class Task extends DataClass implements Insertable<Task> {
       'details': serializer.toJson<String>(details),
       'dueDate': serializer.toJson<DateTime>(dueDate),
       'completed': serializer.toJson<bool>(completed),
+      'archived': serializer.toJson<bool>(archived),
       'createdAt': serializer.toJson<DateTime>(createdAt),
-      'categoryName': serializer.toJson<String>(categoryName),
     };
   }
 
@@ -129,16 +129,16 @@ class Task extends DataClass implements Insertable<Task> {
           String details,
           DateTime dueDate,
           bool completed,
-          DateTime createdAt,
-          String categoryName}) =>
+          bool archived,
+          DateTime createdAt}) =>
       Task(
         id: id ?? this.id,
         title: title ?? this.title,
         details: details ?? this.details,
         dueDate: dueDate ?? this.dueDate,
         completed: completed ?? this.completed,
+        archived: archived ?? this.archived,
         createdAt: createdAt ?? this.createdAt,
-        categoryName: categoryName ?? this.categoryName,
       );
   @override
   String toString() {
@@ -148,8 +148,8 @@ class Task extends DataClass implements Insertable<Task> {
           ..write('details: $details, ')
           ..write('dueDate: $dueDate, ')
           ..write('completed: $completed, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('categoryName: $categoryName')
+          ..write('archived: $archived, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
@@ -164,7 +164,7 @@ class Task extends DataClass implements Insertable<Task> {
               $mrjc(
                   dueDate.hashCode,
                   $mrjc(completed.hashCode,
-                      $mrjc(createdAt.hashCode, categoryName.hashCode)))))));
+                      $mrjc(archived.hashCode, createdAt.hashCode)))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -174,8 +174,8 @@ class Task extends DataClass implements Insertable<Task> {
           other.details == this.details &&
           other.dueDate == this.dueDate &&
           other.completed == this.completed &&
-          other.createdAt == this.createdAt &&
-          other.categoryName == this.categoryName);
+          other.archived == this.archived &&
+          other.createdAt == this.createdAt);
 }
 
 class TaskEntityCompanion extends UpdateCompanion<Task> {
@@ -184,16 +184,16 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
   final Value<String> details;
   final Value<DateTime> dueDate;
   final Value<bool> completed;
+  final Value<bool> archived;
   final Value<DateTime> createdAt;
-  final Value<String> categoryName;
   const TaskEntityCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
     this.details = const Value.absent(),
     this.dueDate = const Value.absent(),
     this.completed = const Value.absent(),
+    this.archived = const Value.absent(),
     this.createdAt = const Value.absent(),
-    this.categoryName = const Value.absent(),
   });
   TaskEntityCompanion.insert({
     this.id = const Value.absent(),
@@ -201,8 +201,8 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
     this.details = const Value.absent(),
     this.dueDate = const Value.absent(),
     this.completed = const Value.absent(),
+    this.archived = const Value.absent(),
     @required DateTime createdAt,
-    this.categoryName = const Value.absent(),
   })  : title = Value(title),
         createdAt = Value(createdAt);
   static Insertable<Task> custom({
@@ -211,8 +211,8 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
     Expression<String> details,
     Expression<DateTime> dueDate,
     Expression<bool> completed,
+    Expression<bool> archived,
     Expression<DateTime> createdAt,
-    Expression<String> categoryName,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -220,8 +220,8 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
       if (details != null) 'details': details,
       if (dueDate != null) 'due_date': dueDate,
       if (completed != null) 'completed': completed,
+      if (archived != null) 'archived': archived,
       if (createdAt != null) 'created_at': createdAt,
-      if (categoryName != null) 'category_name': categoryName,
     });
   }
 
@@ -231,16 +231,16 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
       Value<String> details,
       Value<DateTime> dueDate,
       Value<bool> completed,
-      Value<DateTime> createdAt,
-      Value<String> categoryName}) {
+      Value<bool> archived,
+      Value<DateTime> createdAt}) {
     return TaskEntityCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
       details: details ?? this.details,
       dueDate: dueDate ?? this.dueDate,
       completed: completed ?? this.completed,
+      archived: archived ?? this.archived,
       createdAt: createdAt ?? this.createdAt,
-      categoryName: categoryName ?? this.categoryName,
     );
   }
 
@@ -262,11 +262,11 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
     if (completed.present) {
       map['completed'] = Variable<bool>(completed.value);
     }
+    if (archived.present) {
+      map['archived'] = Variable<bool>(archived.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    if (categoryName.present) {
-      map['category_name'] = Variable<String>(categoryName.value);
     }
     return map;
   }
@@ -279,8 +279,8 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
           ..write('details: $details, ')
           ..write('dueDate: $dueDate, ')
           ..write('completed: $completed, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('categoryName: $categoryName')
+          ..write('archived: $archived, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
@@ -339,6 +339,15 @@ class $TaskEntityTable extends TaskEntity
         defaultValue: Constant(false));
   }
 
+  final VerificationMeta _archivedMeta = const VerificationMeta('archived');
+  GeneratedBoolColumn _archived;
+  @override
+  GeneratedBoolColumn get archived => _archived ??= _constructArchived();
+  GeneratedBoolColumn _constructArchived() {
+    return GeneratedBoolColumn('archived', $tableName, false,
+        defaultValue: Constant(false));
+  }
+
   final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   GeneratedDateTimeColumn _createdAt;
   @override
@@ -351,20 +360,9 @@ class $TaskEntityTable extends TaskEntity
     );
   }
 
-  final VerificationMeta _categoryNameMeta =
-      const VerificationMeta('categoryName');
-  GeneratedTextColumn _categoryName;
-  @override
-  GeneratedTextColumn get categoryName =>
-      _categoryName ??= _constructCategoryName();
-  GeneratedTextColumn _constructCategoryName() {
-    return GeneratedTextColumn('category_name', $tableName, true,
-        $customConstraints: 'NULL REFERENCES todoCategory(title)');
-  }
-
   @override
   List<GeneratedColumn> get $columns =>
-      [id, title, details, dueDate, completed, createdAt, categoryName];
+      [id, title, details, dueDate, completed, archived, createdAt];
   @override
   $TaskEntityTable get asDslTable => this;
   @override
@@ -397,17 +395,15 @@ class $TaskEntityTable extends TaskEntity
       context.handle(_completedMeta,
           completed.isAcceptableOrUnknown(data['completed'], _completedMeta));
     }
+    if (data.containsKey('archived')) {
+      context.handle(_archivedMeta,
+          archived.isAcceptableOrUnknown(data['archived'], _archivedMeta));
+    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at'], _createdAtMeta));
     } else if (isInserting) {
       context.missing(_createdAtMeta);
-    }
-    if (data.containsKey('category_name')) {
-      context.handle(
-          _categoryNameMeta,
-          categoryName.isAcceptableOrUnknown(
-              data['category_name'], _categoryNameMeta));
     }
     return context;
   }

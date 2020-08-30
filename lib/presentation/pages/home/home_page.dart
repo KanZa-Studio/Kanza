@@ -6,6 +6,8 @@ import '../../../data/mocks.dart';
 import '../../widgets/custom_drawer.dart';
 import 'widgets/home_top_bar.dart';
 import './widgets/todo_item.dart';
+import './widgets/time_item.dart';
+import '../../values/colors.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -54,6 +56,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         children: [
           const HomeTopBar(),
           const SizedBox(height: 24),
+          Container(
+            height: 50,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                TimeItem(
+                  title: 'TODAY',
+                  backgroundColor: todayTimeItemBackground,
+                  onClicked: () {},
+                  margin: const EdgeInsets.only(left: 15, right: 4),
+                ),
+                TimeItem(
+                  title: 'TOMORROW',
+                  backgroundColor: tomorrowTimeItemBackground,
+                  onClicked: () {},
+                ),
+                TimeItem(
+                  title: 'PICK A DATE',
+                  backgroundColor: pickADateTimeItemBackground,
+                  onClicked: () {},
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
