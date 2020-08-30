@@ -3,8 +3,8 @@ import 'package:moor_flutter/moor_flutter.dart';
 part 'database_service.g.dart';
 
 @UseMoor(
-  tables: [Todo, TodoCategory],
-  daos: [TodoDao, TodoCategoryDao],
+  tables: [TaskEntity],
+  daos: [TodoDao],
 )
 class KanzaDatabase extends _$KanzaDatabase {
   KanzaDatabase._internal()
@@ -18,103 +18,70 @@ class KanzaDatabase extends _$KanzaDatabase {
   @override
   int get schemaVersion => 1;
 
-  @override
-  MigrationStrategy get migration =>
-      MigrationStrategy(beforeOpen: (details) async {
-        _instance.customStatement('PRAGMA foreign_keys = ON');
-      });
+  // @override
+  // MigrationStrategy get migration =>
+  //     MigrationStrategy(beforeOpen: (details) async {
+  //       _instance.customStatement('PRAGMA foreign_keys = ON');
+  //     });
 }
 
-@UseDao(tables: [Todo, TodoCategory])
+@UseDao(tables: [TaskEntity])
 class TodoDao extends DatabaseAccessor<KanzaDatabase> with _$TodoDaoMixin {
   TodoDao(this.db) : super(db);
 
   final KanzaDatabase db;
 
-  Stream<List<TodoWithCategory>> getAllTodo() {
-    return (select(todo)
-          ..orderBy(
-            [
-              (t) =>
-                  OrderingTerm(expression: t.createdAt, mode: OrderingMode.asc),
-            ],
-          ))
-        .join(
-          [
-            leftOuterJoin(
-                todoCategory, todoCategory.name.equalsExp(todo.categoryName)),
-          ],
-        )
-        .watch()
-        .map((todoRows) => todoRows.map(
-              (row) {
-                return TodoWithCategory(
-                  todoData: row.readTable(todo),
-                  todoCategoryData: row.readTable(todoCategory),
-                );
-              },
-            ).toList());
-  }
+  Stream<List<Task>> getAllTodo() => select(taskEntity).watch();
 
-  Stream<List<TodoEntitiy>> watchAllCompletedTodo() {
-    return (select(todo)
-          ..orderBy([
-            (t) =>
-                OrderingTerm(expression: t.createdAt, mode: OrderingMode.asc),
-          ])
-          ..where((t) => t.completed.equals(true)))
-        .watch();
-  }
+  Future<int> insertTodo(Insertable<Task> todoData) =>
+      into(taskEntity).insert(todoData);
 
-  Future<int> insertTodo(Insertable<TodoEntitiy> todoData) =>
-      into(todo).insert(todoData);
+  Future<bool> updateTodo(Insertable<Task> todoData) =>
+      update(taskEntity).replace(todoData);
 
-  Future<bool> updateTodo(Insertable<TodoEntitiy> todoData) =>
-      update(todo).replace(todoData);
-
-  Future<int> deleteTodo(Insertable<TodoEntitiy> todoData) =>
-      delete(todo).delete(todoData);
+  Future<int> deleteTodo(Insertable<Task> todoData) =>
+      delete(taskEntity).delete(todoData);
 }
 
-@UseDao(tables: [TodoCategory])
-class TodoCategoryDao extends DatabaseAccessor<KanzaDatabase>
-    with _$TodoCategoryDaoMixin {
-  TodoCategoryDao(this.db) : super(db);
+// @UseDao(tables: [TodoCategory])
+// class TodoCategoryDao extends DatabaseAccessor<KanzaDatabase>
+//     with _$TodoCategoryDaoMixin {
+//   TodoCategoryDao(this.db) : super(db);
 
-  final KanzaDatabase db;
+//   final KanzaDatabase db;
 
-  Future<List<TodoCategoryEntity>> getAllCategories() {
-    return (select(todoCategory)
-          ..orderBy([
-            (t) =>
-                OrderingTerm(expression: t.createdAt, mode: OrderingMode.asc),
-          ]))
-        .get();
-  }
+//   Future<List<TodoCategoryEntity>> getAllCategories() {
+//     return (select(todoCategory)
+//           ..orderBy([
+//             (t) =>
+//                 OrderingTerm(expression: t.createdAt, mode: OrderingMode.asc),
+//           ]))
+//         .get();
+//   }
 
-  Future<int> insertTodoCategory(Insertable<TodoCategoryEntity> category) =>
-      into(todoCategory).insert(category);
+//   Future<int> insertTodoCategory(Insertable<TodoCategoryEntity> category) =>
+//       into(todoCategory).insert(category);
 
-  Future<bool> updateTodoCategory(Insertable<TodoCategoryEntity> category) =>
-      update(todoCategory).replace(category);
+//   Future<bool> updateTodoCategory(Insertable<TodoCategoryEntity> category) =>
+//       update(todoCategory).replace(category);
 
-  Future<int> deleteTodoCategory(Insertable<TodoCategoryEntity> todoData) =>
-      delete(todoCategory).delete(todoData);
-}
+//   Future<int> deleteTodoCategory(Insertable<TodoCategoryEntity> todoData) =>
+//       delete(todoCategory).delete(todoData);
+// }
 
-/// used for [foreign keys] and [joins]
-class TodoWithCategory {
-  TodoWithCategory({
-    @required this.todoData,
-    @required this.todoCategoryData,
-  });
+// /// used for [foreign keys] and [joins]
+// class TodoWithCategory {
+//   TodoWithCategory({
+//     @required this.todoData,
+//     @required this.todoCategoryData,
+//   });
 
-  final TodoEntitiy todoData;
-  final TodoCategoryEntity todoCategoryData;
-}
+//   final TodoEntitiy todoData;
+//   final TodoCategoryEntity todoCategoryData;
+// }
 
-@DataClassName('TodoEntitiy')
-class Todo extends Table {
+@DataClassName('Task')
+class TaskEntity extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   TextColumn get title => text().withLength(min: 1, max: 40)();
@@ -125,21 +92,23 @@ class Todo extends Table {
 
   BoolColumn get completed => boolean().withDefault(Constant(false))();
 
+  BoolColumn get archived => boolean().withDefault(Constant(false))();
+
   DateTimeColumn get createdAt => dateTime()();
 
-  TextColumn get categoryName => text()
-      .nullable()
-      .customConstraint('NULL REFERENCES todoCategory(title)')();
+  // TextColumn get categoryName => text()
+  //     .nullable()
+  //     .customConstraint('NULL REFERENCES todoCategory(title)')();
 }
 
-@DataClassName('TodoCategoryEntity')
-class TodoCategory extends Table {
-  TextColumn get name => text().withLength(min: 1, max: 20)();
+// @DataClassName('TodoCategoryEntity')
+// class TodoCategory extends Table {
+//   TextColumn get name => text().withLength(min: 1, max: 20)();
 
-  TextColumn get color => text().nullable()();
+//   TextColumn get color => text().nullable()();
 
-  DateTimeColumn get createdAt => dateTime().nullable()();
+//   DateTimeColumn get createdAt => dateTime().nullable()();
 
-  @override
-  Set<Column> get primaryKey => {name};
-}
+//   @override
+//   Set<Column> get primaryKey => {name};
+// }

@@ -7,7 +7,7 @@ part of 'database_service.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
-class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
+class Task extends DataClass implements Insertable<Task> {
   final int id;
   final String title;
   final String details;
@@ -15,7 +15,7 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
   final bool completed;
   final DateTime createdAt;
   final String categoryName;
-  TodoEntitiy(
+  Task(
       {@required this.id,
       @required this.title,
       this.details,
@@ -23,14 +23,14 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
       @required this.completed,
       @required this.createdAt,
       this.categoryName});
-  factory TodoEntitiy.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Task.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     final boolType = db.typeSystem.forDartType<bool>();
-    return TodoEntitiy(
+    return Task(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       title:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
@@ -73,8 +73,8 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
     return map;
   }
 
-  TodoCompanion toCompanion(bool nullToAbsent) {
-    return TodoCompanion(
+  TaskEntityCompanion toCompanion(bool nullToAbsent) {
+    return TaskEntityCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       title:
           title == null && nullToAbsent ? const Value.absent() : Value(title),
@@ -96,10 +96,10 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
     );
   }
 
-  factory TodoEntitiy.fromJson(Map<String, dynamic> json,
+  factory Task.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return TodoEntitiy(
+    return Task(
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String>(json['title']),
       details: serializer.fromJson<String>(json['details']),
@@ -123,7 +123,7 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
     };
   }
 
-  TodoEntitiy copyWith(
+  Task copyWith(
           {int id,
           String title,
           String details,
@@ -131,7 +131,7 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
           bool completed,
           DateTime createdAt,
           String categoryName}) =>
-      TodoEntitiy(
+      Task(
         id: id ?? this.id,
         title: title ?? this.title,
         details: details ?? this.details,
@@ -142,7 +142,7 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
       );
   @override
   String toString() {
-    return (StringBuffer('TodoEntitiy(')
+    return (StringBuffer('Task(')
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('details: $details, ')
@@ -168,7 +168,7 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is TodoEntitiy &&
+      (other is Task &&
           other.id == this.id &&
           other.title == this.title &&
           other.details == this.details &&
@@ -178,7 +178,7 @@ class TodoEntitiy extends DataClass implements Insertable<TodoEntitiy> {
           other.categoryName == this.categoryName);
 }
 
-class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
+class TaskEntityCompanion extends UpdateCompanion<Task> {
   final Value<int> id;
   final Value<String> title;
   final Value<String> details;
@@ -186,7 +186,7 @@ class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
   final Value<bool> completed;
   final Value<DateTime> createdAt;
   final Value<String> categoryName;
-  const TodoCompanion({
+  const TaskEntityCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
     this.details = const Value.absent(),
@@ -195,7 +195,7 @@ class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
     this.createdAt = const Value.absent(),
     this.categoryName = const Value.absent(),
   });
-  TodoCompanion.insert({
+  TaskEntityCompanion.insert({
     this.id = const Value.absent(),
     @required String title,
     this.details = const Value.absent(),
@@ -205,7 +205,7 @@ class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
     this.categoryName = const Value.absent(),
   })  : title = Value(title),
         createdAt = Value(createdAt);
-  static Insertable<TodoEntitiy> custom({
+  static Insertable<Task> custom({
     Expression<int> id,
     Expression<String> title,
     Expression<String> details,
@@ -225,7 +225,7 @@ class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
     });
   }
 
-  TodoCompanion copyWith(
+  TaskEntityCompanion copyWith(
       {Value<int> id,
       Value<String> title,
       Value<String> details,
@@ -233,7 +233,7 @@ class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
       Value<bool> completed,
       Value<DateTime> createdAt,
       Value<String> categoryName}) {
-    return TodoCompanion(
+    return TaskEntityCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
       details: details ?? this.details,
@@ -273,7 +273,7 @@ class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
 
   @override
   String toString() {
-    return (StringBuffer('TodoCompanion(')
+    return (StringBuffer('TaskEntityCompanion(')
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('details: $details, ')
@@ -286,10 +286,11 @@ class TodoCompanion extends UpdateCompanion<TodoEntitiy> {
   }
 }
 
-class $TodoTable extends Todo with TableInfo<$TodoTable, TodoEntitiy> {
+class $TaskEntityTable extends TaskEntity
+    with TableInfo<$TaskEntityTable, Task> {
   final GeneratedDatabase _db;
   final String _alias;
-  $TodoTable(this._db, [this._alias]);
+  $TaskEntityTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -365,13 +366,13 @@ class $TodoTable extends Todo with TableInfo<$TodoTable, TodoEntitiy> {
   List<GeneratedColumn> get $columns =>
       [id, title, details, dueDate, completed, createdAt, categoryName];
   @override
-  $TodoTable get asDslTable => this;
+  $TaskEntityTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'todo';
+  String get $tableName => _alias ?? 'task_entity';
   @override
-  final String actualTableName = 'todo';
+  final String actualTableName = 'task_entity';
   @override
-  VerificationContext validateIntegrity(Insertable<TodoEntitiy> instance,
+  VerificationContext validateIntegrity(Insertable<Task> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -414,270 +415,27 @@ class $TodoTable extends Todo with TableInfo<$TodoTable, TodoEntitiy> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  TodoEntitiy map(Map<String, dynamic> data, {String tablePrefix}) {
+  Task map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TodoEntitiy.fromData(data, _db, prefix: effectivePrefix);
+    return Task.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $TodoTable createAlias(String alias) {
-    return $TodoTable(_db, alias);
-  }
-}
-
-class TodoCategoryEntity extends DataClass
-    implements Insertable<TodoCategoryEntity> {
-  final String name;
-  final String color;
-  final DateTime createdAt;
-  TodoCategoryEntity({@required this.name, this.color, this.createdAt});
-  factory TodoCategoryEntity.fromData(
-      Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
-    final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return TodoCategoryEntity(
-      name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name']),
-      color:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}color']),
-      createdAt: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
-    );
-  }
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (!nullToAbsent || name != null) {
-      map['name'] = Variable<String>(name);
-    }
-    if (!nullToAbsent || color != null) {
-      map['color'] = Variable<String>(color);
-    }
-    if (!nullToAbsent || createdAt != null) {
-      map['created_at'] = Variable<DateTime>(createdAt);
-    }
-    return map;
-  }
-
-  TodoCategoryCompanion toCompanion(bool nullToAbsent) {
-    return TodoCategoryCompanion(
-      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
-      color:
-          color == null && nullToAbsent ? const Value.absent() : Value(color),
-      createdAt: createdAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(createdAt),
-    );
-  }
-
-  factory TodoCategoryEntity.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return TodoCategoryEntity(
-      name: serializer.fromJson<String>(json['name']),
-      color: serializer.fromJson<String>(json['color']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'name': serializer.toJson<String>(name),
-      'color': serializer.toJson<String>(color),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
-    };
-  }
-
-  TodoCategoryEntity copyWith(
-          {String name, String color, DateTime createdAt}) =>
-      TodoCategoryEntity(
-        name: name ?? this.name,
-        color: color ?? this.color,
-        createdAt: createdAt ?? this.createdAt,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('TodoCategoryEntity(')
-          ..write('name: $name, ')
-          ..write('color: $color, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode =>
-      $mrjf($mrjc(name.hashCode, $mrjc(color.hashCode, createdAt.hashCode)));
-  @override
-  bool operator ==(dynamic other) =>
-      identical(this, other) ||
-      (other is TodoCategoryEntity &&
-          other.name == this.name &&
-          other.color == this.color &&
-          other.createdAt == this.createdAt);
-}
-
-class TodoCategoryCompanion extends UpdateCompanion<TodoCategoryEntity> {
-  final Value<String> name;
-  final Value<String> color;
-  final Value<DateTime> createdAt;
-  const TodoCategoryCompanion({
-    this.name = const Value.absent(),
-    this.color = const Value.absent(),
-    this.createdAt = const Value.absent(),
-  });
-  TodoCategoryCompanion.insert({
-    @required String name,
-    this.color = const Value.absent(),
-    this.createdAt = const Value.absent(),
-  }) : name = Value(name);
-  static Insertable<TodoCategoryEntity> custom({
-    Expression<String> name,
-    Expression<String> color,
-    Expression<DateTime> createdAt,
-  }) {
-    return RawValuesInsertable({
-      if (name != null) 'name': name,
-      if (color != null) 'color': color,
-      if (createdAt != null) 'created_at': createdAt,
-    });
-  }
-
-  TodoCategoryCompanion copyWith(
-      {Value<String> name, Value<String> color, Value<DateTime> createdAt}) {
-    return TodoCategoryCompanion(
-      name: name ?? this.name,
-      color: color ?? this.color,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
-    }
-    if (color.present) {
-      map['color'] = Variable<String>(color.value);
-    }
-    if (createdAt.present) {
-      map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TodoCategoryCompanion(')
-          ..write('name: $name, ')
-          ..write('color: $color, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $TodoCategoryTable extends TodoCategory
-    with TableInfo<$TodoCategoryTable, TodoCategoryEntity> {
-  final GeneratedDatabase _db;
-  final String _alias;
-  $TodoCategoryTable(this._db, [this._alias]);
-  final VerificationMeta _nameMeta = const VerificationMeta('name');
-  GeneratedTextColumn _name;
-  @override
-  GeneratedTextColumn get name => _name ??= _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn('name', $tableName, false,
-        minTextLength: 1, maxTextLength: 20);
-  }
-
-  final VerificationMeta _colorMeta = const VerificationMeta('color');
-  GeneratedTextColumn _color;
-  @override
-  GeneratedTextColumn get color => _color ??= _constructColor();
-  GeneratedTextColumn _constructColor() {
-    return GeneratedTextColumn(
-      'color',
-      $tableName,
-      true,
-    );
-  }
-
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  GeneratedDateTimeColumn _createdAt;
-  @override
-  GeneratedDateTimeColumn get createdAt => _createdAt ??= _constructCreatedAt();
-  GeneratedDateTimeColumn _constructCreatedAt() {
-    return GeneratedDateTimeColumn(
-      'created_at',
-      $tableName,
-      true,
-    );
-  }
-
-  @override
-  List<GeneratedColumn> get $columns => [name, color, createdAt];
-  @override
-  $TodoCategoryTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'todo_category';
-  @override
-  final String actualTableName = 'todo_category';
-  @override
-  VerificationContext validateIntegrity(Insertable<TodoCategoryEntity> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('color')) {
-      context.handle(
-          _colorMeta, color.isAcceptableOrUnknown(data['color'], _colorMeta));
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at'], _createdAtMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {name};
-  @override
-  TodoCategoryEntity map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TodoCategoryEntity.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  $TodoCategoryTable createAlias(String alias) {
-    return $TodoCategoryTable(_db, alias);
+  $TaskEntityTable createAlias(String alias) {
+    return $TaskEntityTable(_db, alias);
   }
 }
 
 abstract class _$KanzaDatabase extends GeneratedDatabase {
   _$KanzaDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  $TodoTable _todo;
-  $TodoTable get todo => _todo ??= $TodoTable(this);
-  $TodoCategoryTable _todoCategory;
-  $TodoCategoryTable get todoCategory =>
-      _todoCategory ??= $TodoCategoryTable(this);
+  $TaskEntityTable _taskEntity;
+  $TaskEntityTable get taskEntity => _taskEntity ??= $TaskEntityTable(this);
   TodoDao _todoDao;
   TodoDao get todoDao => _todoDao ??= TodoDao(this as KanzaDatabase);
-  TodoCategoryDao _todoCategoryDao;
-  TodoCategoryDao get todoCategoryDao =>
-      _todoCategoryDao ??= TodoCategoryDao(this as KanzaDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [todo, todoCategory];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [taskEntity];
 }
 
 // **************************************************************************
@@ -685,9 +443,5 @@ abstract class _$KanzaDatabase extends GeneratedDatabase {
 // **************************************************************************
 
 mixin _$TodoDaoMixin on DatabaseAccessor<KanzaDatabase> {
-  $TodoTable get todo => attachedDatabase.todo;
-  $TodoCategoryTable get todoCategory => attachedDatabase.todoCategory;
-}
-mixin _$TodoCategoryDaoMixin on DatabaseAccessor<KanzaDatabase> {
-  $TodoCategoryTable get todoCategory => attachedDatabase.todoCategory;
+  $TaskEntityTable get taskEntity => attachedDatabase.taskEntity;
 }

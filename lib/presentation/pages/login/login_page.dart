@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/constants/language_keys.dart';
@@ -78,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextField(
                         controller: usernameController,
                         autofocus: false,
+                        maxLength: 7,
                         onChanged: (value) =>
                             context.bloc<LoginCubit>().onUsernameChanged(value),
                         decoration: InputDecoration(
@@ -89,6 +91,10 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp('[a-zA-Z0-9]')),
+                        ],
                       ),
                     ),
                     Material(

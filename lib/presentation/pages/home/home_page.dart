@@ -6,7 +6,6 @@ import '../../../data/mocks.dart';
 import '../../widgets/custom_drawer.dart';
 import 'widgets/home_top_bar.dart';
 import './widgets/todo_item.dart';
-import './widgets/categories_list.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -55,7 +54,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         children: [
           const HomeTopBar(),
           const SizedBox(height: 24),
-          SizedBox(height: 53, child: CategoriesList()),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
