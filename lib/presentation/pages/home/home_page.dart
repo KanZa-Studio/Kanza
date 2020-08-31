@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:kanza/data/services/database_service.dart';
+import 'package:kanza/presentation/pages/home/widgets/top_bar.dart';
 
-import './widgets/custom_fab_button.dart';
-import '../../../data/mocks.dart';
-import '../../widgets/custom_drawer.dart';
-import 'widgets/home_top_bar.dart';
-import './widgets/todo_item.dart';
 import './widgets/time_item.dart';
+import 'widgets/task_item.dart';
 import '../../values/colors.dart';
+import '../../../utils/constants/language_keys.dart';
+import '../../../utils/extensions/translator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,49 +51,66 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
-      body: Column(
-        children: [
-          const HomeTopBar(),
-          const SizedBox(height: 24),
-          Container(
-            height: 50,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                TimeItem(
-                  title: 'TODAY',
-                  backgroundColor: todayTimeItemBackground,
-                  onClicked: () {},
-                  margin: const EdgeInsets.only(left: 15, right: 4),
-                ),
-                TimeItem(
-                  title: 'TOMORROW',
-                  backgroundColor: tomorrowTimeItemBackground,
-                  onClicked: () {},
-                ),
-                TimeItem(
-                  title: 'PICK A DATE',
-                  backgroundColor: pickADateTimeItemBackground,
-                  onClicked: () {},
-                ),
-              ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            const TopBar(),
+            const SizedBox(height: 24),
+            Container(
+              height: 50,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  TimeItem(
+                    title: today.tr(),
+                    backgroundColor: LightThemeColor.todayTimeItemBackground,
+                    onClicked: () {},
+                    margin: const EdgeInsets.only(left: 15, right: 4),
+                  ),
+                  TimeItem(
+                    title: tomorrow.tr(),
+                    backgroundColor: LightThemeColor.tomorrowTimeItemBackground,
+                    onClicked: () {},
+                  ),
+                  TimeItem(
+                    title: pickDate.tr(),
+                    backgroundColor:
+                        LightThemeColor.pickADateTimeItemBackground,
+                    onClicked: () {},
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: ListView.builder(
-              controller: scrollController,
-              itemBuilder: (context, index) =>
-                  TodoItem(todo: mockTodoList[index]),
-              itemCount: mockTodoList.length,
+            const SizedBox(height: 33),
+            Row(children: [Text('Tasks')]),
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, i) => TaskItem(
+                        task: Task(
+                          id: 0,
+                          title: 'Test Task Title',
+                          details: 'Test Task Details',
+                          archived: false,
+                          completed: true,
+                          createdAt: DateTime.now(),
+                          timeColor: 'FF000000',
+                        ),
+                      ),
+                      childCount: 1,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: ScaleTransition(
         scale: animation,
-        child: CustomFabButton(),
+        child: SizedBox(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
     );

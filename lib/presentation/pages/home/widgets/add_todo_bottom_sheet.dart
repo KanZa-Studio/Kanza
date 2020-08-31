@@ -8,7 +8,7 @@ class AddTodoBottomSheet extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: todoItemBackgroundColor,
+        color: LightThemeColor.todoItemBackgroundColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(44),
           topRight: Radius.circular(44),
@@ -25,7 +25,10 @@ class AddTodoBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 12),
-          Container(width: 25, height: 3, color: bottomSheetHandlerColor),
+          Container(
+              width: 25,
+              height: 3,
+              color: LightThemeColor.bottomSheetHandlerColor),
           const SizedBox(height: 200),
         ],
       ),

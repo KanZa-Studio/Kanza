@@ -14,6 +14,7 @@ class Task extends DataClass implements Insertable<Task> {
   final DateTime dueDate;
   final bool completed;
   final bool archived;
+  final String timeColor;
   final DateTime createdAt;
   Task(
       {@required this.id,
@@ -22,6 +23,7 @@ class Task extends DataClass implements Insertable<Task> {
       this.dueDate,
       @required this.completed,
       @required this.archived,
+      this.timeColor,
       @required this.createdAt});
   factory Task.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
@@ -42,6 +44,8 @@ class Task extends DataClass implements Insertable<Task> {
           boolType.mapFromDatabaseResponse(data['${effectivePrefix}completed']),
       archived:
           boolType.mapFromDatabaseResponse(data['${effectivePrefix}archived']),
+      timeColor: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}time_color']),
       createdAt: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
     );
@@ -67,6 +71,9 @@ class Task extends DataClass implements Insertable<Task> {
     if (!nullToAbsent || archived != null) {
       map['archived'] = Variable<bool>(archived);
     }
+    if (!nullToAbsent || timeColor != null) {
+      map['time_color'] = Variable<String>(timeColor);
+    }
     if (!nullToAbsent || createdAt != null) {
       map['created_at'] = Variable<DateTime>(createdAt);
     }
@@ -90,6 +97,9 @@ class Task extends DataClass implements Insertable<Task> {
       archived: archived == null && nullToAbsent
           ? const Value.absent()
           : Value(archived),
+      timeColor: timeColor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timeColor),
       createdAt: createdAt == null && nullToAbsent
           ? const Value.absent()
           : Value(createdAt),
@@ -106,6 +116,7 @@ class Task extends DataClass implements Insertable<Task> {
       dueDate: serializer.fromJson<DateTime>(json['dueDate']),
       completed: serializer.fromJson<bool>(json['completed']),
       archived: serializer.fromJson<bool>(json['archived']),
+      timeColor: serializer.fromJson<String>(json['timeColor']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
@@ -119,6 +130,7 @@ class Task extends DataClass implements Insertable<Task> {
       'dueDate': serializer.toJson<DateTime>(dueDate),
       'completed': serializer.toJson<bool>(completed),
       'archived': serializer.toJson<bool>(archived),
+      'timeColor': serializer.toJson<String>(timeColor),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
@@ -130,6 +142,7 @@ class Task extends DataClass implements Insertable<Task> {
           DateTime dueDate,
           bool completed,
           bool archived,
+          String timeColor,
           DateTime createdAt}) =>
       Task(
         id: id ?? this.id,
@@ -138,6 +151,7 @@ class Task extends DataClass implements Insertable<Task> {
         dueDate: dueDate ?? this.dueDate,
         completed: completed ?? this.completed,
         archived: archived ?? this.archived,
+        timeColor: timeColor ?? this.timeColor,
         createdAt: createdAt ?? this.createdAt,
       );
   @override
@@ -149,6 +163,7 @@ class Task extends DataClass implements Insertable<Task> {
           ..write('dueDate: $dueDate, ')
           ..write('completed: $completed, ')
           ..write('archived: $archived, ')
+          ..write('timeColor: $timeColor, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -163,8 +178,10 @@ class Task extends DataClass implements Insertable<Task> {
               details.hashCode,
               $mrjc(
                   dueDate.hashCode,
-                  $mrjc(completed.hashCode,
-                      $mrjc(archived.hashCode, createdAt.hashCode)))))));
+                  $mrjc(
+                      completed.hashCode,
+                      $mrjc(archived.hashCode,
+                          $mrjc(timeColor.hashCode, createdAt.hashCode))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -175,6 +192,7 @@ class Task extends DataClass implements Insertable<Task> {
           other.dueDate == this.dueDate &&
           other.completed == this.completed &&
           other.archived == this.archived &&
+          other.timeColor == this.timeColor &&
           other.createdAt == this.createdAt);
 }
 
@@ -185,6 +203,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
   final Value<DateTime> dueDate;
   final Value<bool> completed;
   final Value<bool> archived;
+  final Value<String> timeColor;
   final Value<DateTime> createdAt;
   const TaskEntityCompanion({
     this.id = const Value.absent(),
@@ -193,6 +212,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
     this.dueDate = const Value.absent(),
     this.completed = const Value.absent(),
     this.archived = const Value.absent(),
+    this.timeColor = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
   TaskEntityCompanion.insert({
@@ -202,6 +222,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
     this.dueDate = const Value.absent(),
     this.completed = const Value.absent(),
     this.archived = const Value.absent(),
+    this.timeColor = const Value.absent(),
     @required DateTime createdAt,
   })  : title = Value(title),
         createdAt = Value(createdAt);
@@ -212,6 +233,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
     Expression<DateTime> dueDate,
     Expression<bool> completed,
     Expression<bool> archived,
+    Expression<String> timeColor,
     Expression<DateTime> createdAt,
   }) {
     return RawValuesInsertable({
@@ -221,6 +243,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
       if (dueDate != null) 'due_date': dueDate,
       if (completed != null) 'completed': completed,
       if (archived != null) 'archived': archived,
+      if (timeColor != null) 'time_color': timeColor,
       if (createdAt != null) 'created_at': createdAt,
     });
   }
@@ -232,6 +255,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
       Value<DateTime> dueDate,
       Value<bool> completed,
       Value<bool> archived,
+      Value<String> timeColor,
       Value<DateTime> createdAt}) {
     return TaskEntityCompanion(
       id: id ?? this.id,
@@ -240,6 +264,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
       dueDate: dueDate ?? this.dueDate,
       completed: completed ?? this.completed,
       archived: archived ?? this.archived,
+      timeColor: timeColor ?? this.timeColor,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -265,6 +290,9 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
     if (archived.present) {
       map['archived'] = Variable<bool>(archived.value);
     }
+    if (timeColor.present) {
+      map['time_color'] = Variable<String>(timeColor.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -280,6 +308,7 @@ class TaskEntityCompanion extends UpdateCompanion<Task> {
           ..write('dueDate: $dueDate, ')
           ..write('completed: $completed, ')
           ..write('archived: $archived, ')
+          ..write('timeColor: $timeColor, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -348,6 +377,18 @@ class $TaskEntityTable extends TaskEntity
         defaultValue: Constant(false));
   }
 
+  final VerificationMeta _timeColorMeta = const VerificationMeta('timeColor');
+  GeneratedTextColumn _timeColor;
+  @override
+  GeneratedTextColumn get timeColor => _timeColor ??= _constructTimeColor();
+  GeneratedTextColumn _constructTimeColor() {
+    return GeneratedTextColumn(
+      'time_color',
+      $tableName,
+      true,
+    );
+  }
+
   final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   GeneratedDateTimeColumn _createdAt;
   @override
@@ -362,7 +403,7 @@ class $TaskEntityTable extends TaskEntity
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, title, details, dueDate, completed, archived, createdAt];
+      [id, title, details, dueDate, completed, archived, timeColor, createdAt];
   @override
   $TaskEntityTable get asDslTable => this;
   @override
@@ -398,6 +439,10 @@ class $TaskEntityTable extends TaskEntity
     if (data.containsKey('archived')) {
       context.handle(_archivedMeta,
           archived.isAcceptableOrUnknown(data['archived'], _archivedMeta));
+    }
+    if (data.containsKey('time_color')) {
+      context.handle(_timeColorMeta,
+          timeColor.isAcceptableOrUnknown(data['time_color'], _timeColorMeta));
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,

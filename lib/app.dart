@@ -1,55 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import './my_scroll_behavior.dart';
 import './presentation/pages/splash/splash_page.dart';
 import './presentation/values/themes.dart';
 import './utils/localization_helper/localization_helper.dart';
-import './data/repositories/auth_repository.dart';
-import './blocs/auth_cubit/auth_cubit.dart';
 import './presentation/router.dart';
 
 class KanzaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<AuthRepository>(create: (_) => AuthRepository()),
+    return MaterialApp(
+      title: 'Kanza',
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.dark,
+      locale: const Locale('az', 'AZ'),
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('az', 'AZ'),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthCubit>(
-            create: (context) => AuthCubit(
-              context.repository<AuthRepository>(),
-            )..initAuth(),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'Kanza',
-          debugShowCheckedModeBanner: false,
-          theme: defaultTheme,
-          locale: const Locale('az', 'AZ'),
-          supportedLocales: [
-            Locale('en', 'US'),
-            Locale('az', 'AZ'),
-          ],
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          onGenerateRoute: Router.onGenerateRoute,
-          builder: (context, child) {
-            return ScrollConfiguration(
-              behavior: MyBehaviour(),
-              child: child,
-            );
-          },
-          home: SplashPage(),
-        ),
-      ),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      onGenerateRoute: Router.onGenerateRoute,
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: MyBehaviour(),
+          child: child,
+        );
+      },
+      home: SplashPage(),
     );
   }
 }

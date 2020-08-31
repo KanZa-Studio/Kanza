@@ -4,11 +4,13 @@ class _AssetsIcons {
   final String approve = 'assets/icons/approve.svg';
   final String archive = 'assets/icons/archive.svg';
   final String bin = 'assets/icons/bin.svg';
+  final String noTask = 'assets/icons/no_task.svg';
 }
 
 class _AssetsLangs {
   const _AssetsLangs._();
 
+  final String az = 'assets/langs/az.json';
   final String en = 'assets/langs/en.json';
 }
 

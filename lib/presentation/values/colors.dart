@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
 
-const Color primaryColor = Color(0xFF0176E1);
+class LightThemeColor {
+  LightThemeColor._();
 
-const Color pageBackgroundColor = Colors.white;
+  static const Color kPrimaryColor = Color(0xFF0176E1);
 
-const Color category1 = Color(0xFFC9FFC8);
+  static const Color kScaffoldBackgroundColor = Colors.white;
 
-const Color category2 = Color(0xFFDEE1FF);
+  static const Color topBarShadowColor = Color.fromRGBO(1, 118, 225, 0.03);
 
-const Color category3 = Color(0xFFFFDEDE);
+  /// --------------------
 
-const Color category4 = Color(0xFFDEFFEF);
+  static const Color todayTimeItemBackground = Color(0xFFFFDEDE);
 
-const Color todayTimeItemBackground = Color(0xFFFFDEDE);
+  static const Color tomorrowTimeItemBackground =
+      Color.fromRGBO(91, 177, 255, 0.35);
 
-const Color tomorrowTimeItemBackground = Color.fromRGBO(91, 177, 255, 0.35);
+  static const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);
 
-const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);
+  static const Color fabShadowColor = Color.fromRGBO(1, 118, 225, 0.1);
 
-const Color fabShadowColor = Color.fromRGBO(1, 118, 225, 0.35);
+  static const Color todoItemSubtitleColor = Color(0xFF4E4E4E);
 
-const Color todoItemSubtitleColor = Color(0xFF4E4E4E);
+  static const Color todoItemBackgroundColor = Color(0xFFF8F8F8);
 
-const Color drawerItemUnselectedColor = Color(0xFFA4A4A4);
+  static const Color bottomSheetHandlerColor = Color(0xFFDBDBDB);
 
-const Color todoItemBackgroundColor = Color(0xFFF8F8F8);
+  static const Color archiveBackgroundColor = Color(0xFF949494);
+}
 
-const Color bottomSheetHandlerColor = Color(0xFFDBDBDB);
+class DarkThemeColor {
+  static const Color kPrimaryColor = Colors.white;
 
-const Color textFieldHintColor = Color(0xFFC4C4C4);
+  static const Color kScaffoldBackgroundColor = Color(0xFF1F1F1F);
 
-const Color underlinedBorderColor = Color(0xFFE3E3E3);
+  static const Color topBarShadowColor = Color.fromRGBO(1, 118, 225, 0.03);
+}

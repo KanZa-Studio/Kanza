@@ -94,6 +94,8 @@ class TaskEntity extends Table {
 
   BoolColumn get archived => boolean().withDefault(Constant(false))();
 
+  TextColumn get timeColor => text().nullable()();
+
   DateTimeColumn get createdAt => dateTime()();
 
   // TextColumn get categoryName => text()

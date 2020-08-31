@@ -1,48 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanza/data/models/todo.dart';
 
+import '../../../../data/services/database_service.dart';
 import '../../../../utils/constants/assets.dart';
+import '../../../../utils/extensions/color_extension.dart';
 import '../../../values/colors.dart';
 
-class TodoItem extends StatelessWidget {
-  const TodoItem({this.todo});
+class TaskItem extends StatelessWidget {
+  const TaskItem({this.task});
 
-  final Todo todo;
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       movementDuration: Duration(seconds: 1),
-      key: ValueKey(todo.id),
+      key: ValueKey(task.id),
       confirmDismiss: (direction) async => false,
-      background: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: SvgPicture.asset(
-              Assets.icons.archive,
-              width: 17,
-              height: 17,
+      background: Container(
+        color: LightThemeColor.archiveBackgroundColor,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: SvgPicture.asset(
+                Assets.icons.archive,
+                width: 17,
+                height: 17,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      secondaryBackground: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: SvgPicture.asset(
-              Assets.icons.bin,
-              width: 20,
-              height: 20,
+      secondaryBackground: Container(
+        color: Colors.red,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: SvgPicture.asset(
+                Assets.icons.bin,
+                width: 20,
+                height: 20,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         height: 76,
         child: Row(
           children: [
@@ -50,7 +57,7 @@ class TodoItem extends StatelessWidget {
               height: 76,
               width: 10,
               decoration: BoxDecoration(
-                color: todo.category.color,
+                color: task.timeColor.toColor(),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
@@ -71,22 +78,22 @@ class TodoItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          todo.title,
+                          task.title,
                           style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                decoration: todo.isDone
+                                decoration: task.completed
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
-                                color: todo.isDone
-                                    ? todoItemSubtitleColor
+                                color: task.completed
+                                    ? LightThemeColor.todoItemSubtitleColor
                                     : Colors.black,
                               ),
                         ),
                         Text(
-                          todo.details,
+                          task.details,
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.normal,
-                                color: todoItemSubtitleColor,
-                                decoration: todo.isDone
+                                color: LightThemeColor.todoItemSubtitleColor,
+                                decoration: task.completed
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
                               ),
@@ -97,13 +104,10 @@ class TodoItem extends StatelessWidget {
                       width: 22,
                       height: 22,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                          width: 2.0,
-                        ),
+                        color: Theme.of(context).primaryColor,
                         shape: BoxShape.circle,
                       ),
-                      child: todo.isDone
+                      child: task.completed
                           ? Center(
                               child: SvgPicture.asset(Assets.icons.approve),
                             )
