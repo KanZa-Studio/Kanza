@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../utils/extensions/theme_extension.dart';
 
 class TimeItem extends StatelessWidget {
   const TimeItem({
@@ -18,18 +19,23 @@ class TimeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 96,
+      width: 100,
       height: 50,
       margin: margin,
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(6.0),
-        border: selected ? Border.all() : null,
+        border: selected
+            ? Border.all(
+                color: Theme.of(context).selecteTimeItemBorderColor,
+                width: 3,
+              )
+            : null,
       ),
       child: Center(
         child: Text(
-          title,
-          style: Theme.of(context).textTheme.caption,
+          title.toUpperCase(),
+          style: Theme.of(context).textTheme.overline,
         ),
       ),
     );

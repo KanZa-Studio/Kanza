@@ -104,8 +104,14 @@ class TaskItem extends StatelessWidget {
                       width: 22,
                       height: 22,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: task.completed
+                            ? Theme.of(context).primaryColor
+                            : Colors.transparent,
                         shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2,
+                        ),
                       ),
                       child: task.completed
                           ? Center(

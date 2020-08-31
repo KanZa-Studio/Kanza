@@ -5,10 +5,13 @@ import './fonts.dart';
 
 final lightTheme = ThemeData(
   fontFamily: 'Roboto',
+  brightness: Brightness.light,
   primaryColor: LightThemeColor.kPrimaryColor,
   scaffoldBackgroundColor: LightThemeColor.kScaffoldBackgroundColor,
   textTheme: TextTheme(
     headline6: f22W900.copyWith(color: LightThemeColor.kPrimaryColor),
+    bodyText1: f16w500.copyWith(color: Colors.black),
+    overline: f10W500.copyWith(color: Colors.black),
     // headline5: f24W900,
     // caption: f12W500,
     // headline6: f22W900,
@@ -22,9 +25,12 @@ final lightTheme = ThemeData(
 
 final darkTheme = ThemeData(
   fontFamily: 'Roboto',
+  brightness: Brightness.dark,
   primaryColor: DarkThemeColor.kPrimaryColor,
   scaffoldBackgroundColor: DarkThemeColor.kScaffoldBackgroundColor,
   textTheme: TextTheme(
     headline6: f22W900.copyWith(color: DarkThemeColor.kPrimaryColor),
+    bodyText1: f16w500.copyWith(color: DarkThemeColor.homeTasksTextColor),
+    overline: f10W500.copyWith(color: Colors.black),
   ),
 );

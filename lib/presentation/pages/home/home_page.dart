@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kanza/data/services/database_service.dart';
-import 'package:kanza/presentation/pages/home/widgets/top_bar.dart';
+import 'package:kanza/presentation/pages/home/widgets/task_item.dart';
 
 import './widgets/time_item.dart';
-import 'widgets/task_item.dart';
-import '../../values/colors.dart';
+import './widgets/top_bar.dart';
 import '../../../utils/constants/language_keys.dart';
+import '../../../utils/extensions/theme_extension.dart';
 import '../../../utils/extensions/translator.dart';
+import '../../../utils/extensions/theme_extension.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -52,60 +53,84 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const TopBar(),
-            const SizedBox(height: 24),
-            Container(
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  TimeItem(
-                    title: today.tr(),
-                    backgroundColor: LightThemeColor.todayTimeItemBackground,
-                    onClicked: () {},
-                    margin: const EdgeInsets.only(left: 15, right: 4),
-                  ),
-                  TimeItem(
-                    title: tomorrow.tr(),
-                    backgroundColor: LightThemeColor.tomorrowTimeItemBackground,
-                    onClicked: () {},
-                  ),
-                  TimeItem(
-                    title: pickDate.tr(),
-                    backgroundColor:
-                        LightThemeColor.pickADateTimeItemBackground,
-                    onClicked: () {},
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 33),
-            Row(children: [Text('Tasks')]),
-            Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, i) => TaskItem(
-                        task: Task(
-                          id: 0,
-                          title: 'Test Task Title',
-                          details: 'Test Task Details',
-                          archived: false,
-                          completed: true,
-                          createdAt: DateTime.now(),
-                          timeColor: 'FF000000',
-                        ),
-                      ),
-                      childCount: 1,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            children: [
+              const TopBar(),
+              const SizedBox(height: 20),
+              Container(
+                height: 50,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    TimeItem(
+                      title: today.tr(),
+                      backgroundColor:
+                          Theme.of(context).todayItemBackgroundColor,
+                      onClicked: () {},
+                      margin: const EdgeInsets.only(left: 1, right: 4),
+                      selected: true,
                     ),
+                    TimeItem(
+                      title: tomorrow.tr(),
+                      backgroundColor:
+                          Theme.of(context).tomorrowItemBackgroundColor,
+                      onClicked: () {},
+                    ),
+                    TimeItem(
+                      title: pickDate.tr(),
+                      backgroundColor:
+                          Theme.of(context).pickDateItemBackgroundColor,
+                      onClicked: () {},
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 31),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Tasks', style: Theme.of(context).textTheme.bodyText1),
+                  Row(
+                    children: [
+                      Text(
+                        'Filter',
+                        style: Theme.of(context).textTheme.overline.copyWith(
+                              fontWeight: FontWeight.normal,
+                              color: Theme.of(context).filterTextColor,
+                            ),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(Icons.filter_list),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
+              Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, i) => TaskItem(
+                          task: Task(
+                            id: 1,
+                            title: 'Title',
+                            details: 'Details',
+                            archived: false,
+                            completed: i == 1,
+                            timeColor: 'FFffdede',
+                            createdAt: DateTime.now(),
+                          ),
+                        ),
+                        childCount: 2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: ScaleTransition(
