@@ -16,6 +16,8 @@ class LightThemeColor {
 
   static const Color kSelectedTimeItemBorderColor = Color(0xFF0176E1);
 
+  static const Color kTaskItemBackgroundColor = Color(0xFFF8F8F8);
+
   /// --------------------
 
   static const Color todayTimeItemBackground = Color(0xFFFFDEDE);
@@ -46,4 +48,6 @@ class DarkThemeColor {
   static const Color tomorrowItemBackgroundColor = Color(0xFF5BB1FF);
 
   static const Color homeTasksTextColor = Color(0xFFFAFAFA);
+
+  static const Color kTaskItemBackgroundColor = Color(0xFF333232);
 }

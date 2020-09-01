@@ -15,7 +15,7 @@ class KanzaApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       locale: const Locale('en', 'US'),
       supportedLocales: [
         Locale('en', 'US'),

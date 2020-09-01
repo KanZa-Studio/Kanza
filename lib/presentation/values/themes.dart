@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kanza/presentation/values/colors.dart';
 
 import './fonts.dart';
+import './colors.dart';
 
 final lightTheme = ThemeData(
   fontFamily: 'Roboto',
   brightness: Brightness.light,
   primaryColor: LightThemeColor.kPrimaryColor,
   scaffoldBackgroundColor: LightThemeColor.kScaffoldBackgroundColor,
+  cardColor: LightThemeColor.kTaskItemBackgroundColor,
   textTheme: TextTheme(
     headline2: f60W900.copyWith(color: Colors.white),
     headline6: f22W900,
@@ -29,6 +30,7 @@ final darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: DarkThemeColor.kPrimaryColor,
   scaffoldBackgroundColor: DarkThemeColor.kScaffoldBackgroundColor,
+  cardColor: DarkThemeColor.kTaskItemBackgroundColor,
   textTheme: TextTheme(
     headline2: f60W900.copyWith(color: Colors.white),
     headline6: f22W900,

@@ -22,5 +22,7 @@ extension ThemeExtension on ThemeData {
   Color get topBarTitleTextColor =>
       isDark ? Color(0xFFFAFAFA) : LightThemeColor.kPrimaryColor;
 
+  Color get filterIconColor => isDark ? Colors.white : Colors.black;
+
   bool get isDark => brightness == Brightness.dark;
 }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kanza/data/services/database_service.dart';
-import 'package:kanza/presentation/pages/home/widgets/task_item.dart';
-import 'package:kanza/utils/constants/assets.dart';
 
 import './widgets/time_item.dart';
 import './widgets/top_bar.dart';
@@ -11,6 +9,8 @@ import '../../../utils/constants/language_keys.dart';
 import '../../../utils/extensions/theme_extension.dart';
 import '../../../utils/extensions/translator.dart';
 import '../../../utils/extensions/theme_extension.dart';
+import '../../../utils/constants/assets.dart';
+import './widgets/task_item.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -104,7 +104,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
                       ),
                       const SizedBox(width: 8),
-                      SvgPicture.asset(Assets.icons.filter),
+                      SvgPicture.asset(
+                        Assets.icons.filter,
+                        color: Theme.of(context).filterIconColor,
+                      ),
                     ],
                   ),
                 ],
@@ -112,6 +115,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Expanded(
                 child: CustomScrollView(
                   slivers: [
+                    const SliverToBoxAdapter(child: SizedBox(height: 20)),
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, i) => TaskItem(
@@ -125,7 +129,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             createdAt: DateTime.now(),
                           ),
                         ),
-                        childCount: 2,
+                        childCount: 3,
                       ),
                     ),
                   ],
