@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../values/colors.dart';
 import '../../../../utils/constants/language_keys.dart';
 import '../../../../utils/extensions/translator.dart';
+import '../../../../utils/extensions/theme_extension.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar();
@@ -26,12 +27,14 @@ class TopBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.menu, color: Theme.of(context).primaryColor),
+          Icon(Icons.menu, color: Theme.of(context).topBarTitleTextColor),
           Expanded(
             child: Center(
               child: Text(
                 kanza,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      color: Theme.of(context).topBarTitleTextColor,
+                    ),
               ).tr(),
             ),
           ),

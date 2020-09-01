@@ -4,6 +4,7 @@ class _AssetsIcons {
   final String approve = 'assets/icons/approve.svg';
   final String archive = 'assets/icons/archive.svg';
   final String bin = 'assets/icons/bin.svg';
+  final String filter = 'assets/icons/filter.svg';
   final String noTask = 'assets/icons/no_task.svg';
 }
 

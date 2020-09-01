@@ -49,7 +49,7 @@ class TaskItem extends StatelessWidget {
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         height: 76,
         child: Row(
           children: [

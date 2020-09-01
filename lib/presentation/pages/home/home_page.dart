@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kanza/data/services/database_service.dart';
 import 'package:kanza/presentation/pages/home/widgets/task_item.dart';
+import 'package:kanza/utils/constants/assets.dart';
 
 import './widgets/time_item.dart';
 import './widgets/top_bar.dart';
@@ -102,7 +104,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
                       ),
                       const SizedBox(width: 8),
-                      Icon(Icons.filter_list),
+                      SvgPicture.asset(Assets.icons.filter),
                     ],
                   ),
                 ],

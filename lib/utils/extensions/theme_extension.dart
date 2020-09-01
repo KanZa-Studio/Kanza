@@ -19,5 +19,8 @@ extension ThemeExtension on ThemeData {
   Color get filterTextColor =>
       isDark ? DarkThemeColor.homeTasksTextColor : Colors.black;
 
+  Color get topBarTitleTextColor =>
+      isDark ? Color(0xFFFAFAFA) : LightThemeColor.kPrimaryColor;
+
   bool get isDark => brightness == Brightness.dark;
 }
