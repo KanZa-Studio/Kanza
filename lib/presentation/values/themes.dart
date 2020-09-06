@@ -14,6 +14,7 @@ final lightTheme = ThemeData(
     headline3: f40W900.copyWith(color: LightThemeColor.kPrimaryColor),
     headline6: f22W900,
     bodyText1: f16w500.copyWith(color: Colors.black),
+    caption: f12.copyWith(color: LightThemeColor.kTodoItemSubtitleColor),
     overline: f10W500.copyWith(color: Colors.black),
     // headline5: f24W900,
     // caption: f12W500,
@@ -37,6 +38,7 @@ final darkTheme = ThemeData(
     headline3: f40W900.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
     headline6: f22W900.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
     bodyText1: f16w500.copyWith(color: DarkThemeColor.homeTasksTextColor),
+    caption: f12.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
     overline: f10W500.copyWith(color: Colors.black),
   ),
 );

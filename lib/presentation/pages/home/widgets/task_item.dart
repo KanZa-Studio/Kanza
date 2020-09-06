@@ -1,11 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanza/presentation/pages/home/widgets/dismissible.dart';
 
+import './dismissible.dart';
 import '../../../../data/services/database_service.dart';
 import '../../../../utils/constants/assets.dart';
 import '../../../../utils/extensions/color_extension.dart';
+import '../../../../utils/extensions/theme_extension.dart';
 import '../../../values/colors.dart';
 
 class TaskItem extends StatefulWidget {
@@ -120,16 +121,13 @@ class _TaskItemState extends State<TaskItem> {
                                 decoration: widget.task.completed
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
-                                color: widget.task.completed
-                                    ? LightThemeColor.todoItemSubtitleColor
-                                    : Colors.black,
+                                color: Theme.of(context).drawerItemTextColor,
                               ),
                         ),
                         Text(
                           widget.task.details,
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.normal,
-                                color: LightThemeColor.todoItemSubtitleColor,
                                 decoration: widget.task.completed
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,

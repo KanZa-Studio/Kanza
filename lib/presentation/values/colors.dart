@@ -20,11 +20,11 @@ class LightThemeColor {
 
   static const Color kDrawerIconColor = Color(0xFF333232);
 
+  static const Color kTodoItemSubtitleColor = Color(0xFF4E4E4E);
+
   /// --------------------
 
   static const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);
-
-  static const Color todoItemSubtitleColor = Color(0xFF4E4E4E);
 
   static const Color todoItemBackgroundColor = Color(0xFFF8F8F8);
 
