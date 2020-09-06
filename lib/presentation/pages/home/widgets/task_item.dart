@@ -1,24 +1,47 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kanza/presentation/pages/home/widgets/dismissible.dart';
 
 import '../../../../data/services/database_service.dart';
 import '../../../../utils/constants/assets.dart';
 import '../../../../utils/extensions/color_extension.dart';
 import '../../../values/colors.dart';
 
-class TaskItem extends StatelessWidget {
+class TaskItem extends StatefulWidget {
   const TaskItem({this.task});
 
   final Task task;
 
   @override
+  _TaskItemState createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
+  bool showTimeColor = true;
+
+  @override
   Widget build(BuildContext context) {
-    return Dismissible(
+    return CustomDismissible(
+      onResize: () {
+        print('onResize');
+      },
+      key: ValueKey(widget.task.id),
       movementDuration: Duration(seconds: 1),
-      key: ValueKey(task.id),
-      confirmDismiss: (direction) async => false,
+      dragStartBehavior: DragStartBehavior.start,
+      onDismissed: (direction) {
+        print('test');
+      },
+      confirmDismiss: (direction) async {
+        print('working');
+        return false;
+      },
       background: Container(
-        color: LightThemeColor.archiveBackgroundColor,
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        decoration: BoxDecoration(
+          color: LightThemeColor.archiveBackgroundColor,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
         child: Row(
           children: [
             Padding(
@@ -33,7 +56,11 @@ class TaskItem extends StatelessWidget {
         ),
       ),
       secondaryBackground: Container(
-        color: Colors.red,
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -49,19 +76,29 @@ class TaskItem extends StatelessWidget {
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
         height: 76,
         child: Row(
           children: [
-            Container(
-              height: 76,
-              width: 10,
-              decoration: BoxDecoration(
-                color: task.timeColor.toColor(),
-                borderRadius: BorderRadius.circular(8),
+            Visibility(
+              visible: showTimeColor,
+              child: Container(
+                height: 76,
+                width: 10,
+                decoration: BoxDecoration(
+                  color: widget.task.timeColor.toColor(),
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
-            const SizedBox(width: 6),
+            Visibility(
+              visible: showTimeColor,
+              child: const SizedBox(width: 6),
+            ),
             Expanded(
               child: Container(
                 padding:
@@ -78,22 +115,22 @@ class TaskItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          task.title,
+                          widget.task.title,
                           style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                decoration: task.completed
+                                decoration: widget.task.completed
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
-                                color: task.completed
+                                color: widget.task.completed
                                     ? LightThemeColor.todoItemSubtitleColor
                                     : Colors.black,
                               ),
                         ),
                         Text(
-                          task.details,
+                          widget.task.details,
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.normal,
                                 color: LightThemeColor.todoItemSubtitleColor,
-                                decoration: task.completed
+                                decoration: widget.task.completed
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
                               ),
@@ -104,7 +141,7 @@ class TaskItem extends StatelessWidget {
                       width: 22,
                       height: 22,
                       decoration: BoxDecoration(
-                        color: task.completed
+                        color: widget.task.completed
                             ? Theme.of(context).primaryColor
                             : Colors.transparent,
                         shape: BoxShape.circle,
@@ -113,7 +150,7 @@ class TaskItem extends StatelessWidget {
                           width: 2,
                         ),
                       ),
-                      child: task.completed
+                      child: widget.task.completed
                           ? Center(
                               child: SvgPicture.asset(Assets.icons.approve),
                             )

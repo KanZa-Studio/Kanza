@@ -14,11 +14,16 @@
     "today": "Bu gün",
     "tomorrow": "Sabah",
     "pick_date": "Tarixi seç",
-    "home": "Ana səhifə",
     "edit_categories": "Kateqoriyaları redaktə et",
     "archives": "Arxivlər",
     "share_app": "Tətbiqi paylaş",
     "about": "Haqqında",
     "login_failed": "Error occured, please try again!",
-    "category_add_fail": "Bu adda kateqoriya artıq mövcuddur!"
+    "category_add_fail": "Bu adda kateqoriya artıq mövcuddur!",
+    "eng": "İngilis dili",
+    "aze": "Azərbaycan dili",
+    "ru": "Rus dili",
+    "dark_mode": "Qaranlıq rejim",
+    "light_mode": "Açıq rejim",
+    "home": "Ana səhifə"
 }

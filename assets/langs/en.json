@@ -14,11 +14,16 @@
     "today": "Today",
     "tomorrow": "Tomorrow",
     "pick_date": "Pick a date",
-    "home": "home",
+    "home": "Home",
     "edit_categories": "Edit categories",
     "archives": "Archives",
     "share_app": "Share App",
     "about": "about",
     "login_failed": "Error occured, please try again!",
-    "category_add_fail": "There is already category with this name!"
+    "category_add_fail": "There is already category with this name!",
+    "eng": "ENG",
+    "aze": "AZE",
+    "ru": "RU",
+    "dark_mode": "Dark mode",
+    "light_mode": "Light mode"
 }

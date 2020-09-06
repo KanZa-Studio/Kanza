@@ -11,6 +11,7 @@ final lightTheme = ThemeData(
   cardColor: LightThemeColor.kTaskItemBackgroundColor,
   textTheme: TextTheme(
     headline2: f60W900.copyWith(color: Colors.white),
+    headline3: f40W900.copyWith(color: LightThemeColor.kPrimaryColor),
     headline6: f22W900,
     bodyText1: f16w500.copyWith(color: Colors.black),
     overline: f10W500.copyWith(color: Colors.black),
@@ -33,7 +34,8 @@ final darkTheme = ThemeData(
   cardColor: DarkThemeColor.kTaskItemBackgroundColor,
   textTheme: TextTheme(
     headline2: f60W900.copyWith(color: Colors.white),
-    headline6: f22W900,
+    headline3: f40W900.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
+    headline6: f22W900.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
     bodyText1: f16w500.copyWith(color: DarkThemeColor.homeTasksTextColor),
     overline: f10W500.copyWith(color: Colors.black),
   ),

@@ -3,14 +3,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kanza/data/services/database_service.dart';
 
+import './widgets/task_item.dart';
 import './widgets/time_item.dart';
 import './widgets/top_bar.dart';
+import '../../../utils/constants/assets.dart';
 import '../../../utils/constants/language_keys.dart';
 import '../../../utils/extensions/theme_extension.dart';
 import '../../../utils/extensions/translator.dart';
-import '../../../utils/extensions/theme_extension.dart';
-import '../../../utils/constants/assets.dart';
-import './widgets/task_item.dart';
+import '../../widgets/kanza_drawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -54,6 +54,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: KanzaDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),

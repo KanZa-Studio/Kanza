@@ -27,14 +27,12 @@ class TopBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.menu, color: Theme.of(context).topBarTitleTextColor),
+          Icon(Icons.menu, color: Theme.of(context).topBarDrawerOpenerColor),
           Expanded(
             child: Center(
               child: Text(
                 kanza,
-                style: Theme.of(context).textTheme.headline6.copyWith(
-                      color: Theme.of(context).topBarTitleTextColor,
-                    ),
+                style: Theme.of(context).textTheme.headline6,
               ).tr(),
             ),
           ),

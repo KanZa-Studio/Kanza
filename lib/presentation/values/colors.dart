@@ -18,16 +18,11 @@ class LightThemeColor {
 
   static const Color kTaskItemBackgroundColor = Color(0xFFF8F8F8);
 
+  static const Color kDrawerIconColor = Color(0xFF333232);
+
   /// --------------------
 
-  static const Color todayTimeItemBackground = Color(0xFFFFDEDE);
-
-  static const Color tomorrowTimeItemBackground =
-      Color.fromRGBO(91, 177, 255, 0.35);
-
   static const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);
-
-  static const Color fabShadowColor = Color.fromRGBO(1, 118, 225, 0.1);
 
   static const Color todoItemSubtitleColor = Color(0xFF4E4E4E);
 
@@ -50,4 +45,8 @@ class DarkThemeColor {
   static const Color homeTasksTextColor = Color(0xFFFAFAFA);
 
   static const Color kTaskItemBackgroundColor = Color(0xFF333232);
+
+  static const Color kDrawerBackgroundColor = Color.fromARGB(43, 0, 0, 0);
+
+  static const Color kKanzaTitleTextColor = Color(0xFFF4F4F4);
 }
