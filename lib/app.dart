@@ -16,7 +16,7 @@ class KanzaApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      locale: const Locale('az', 'AZ'),
+      locale: const Locale('en', 'US'),
       supportedLocales: [
         Locale('en', 'US'),
         Locale('az', 'AZ'),

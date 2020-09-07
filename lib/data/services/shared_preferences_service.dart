@@ -22,4 +22,19 @@ class SharedPreferencesService {
       await _preferences.setString('username', username);
 
   String get username => _preferences.getString('username');
+
+  Future<void> setLanguageCode(String languageCode) async =>
+      await _preferences.setString('languageCode', languageCode);
+
+  String get languageCode => _preferences.getString('languageCode');
+
+  Future<void> setCountryCode(String countryCode) async =>
+      await _preferences.setString('countryCode', countryCode);
+
+  String get countryCode => _preferences.getString('countryCode');
+
+  Future<void> setDarkModeInfo(bool isDarkModeEnabled) async =>
+      await _preferences.setBool('theme', isDarkModeEnabled);
+
+  bool get isDarkModeEnabled => _preferences.getBool('theme');
 }
