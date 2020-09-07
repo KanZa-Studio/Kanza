@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:kanza/presentation/pages/home/home_page.dart';
 
 import '../../../utils/constants/language_keys.dart';
 import '../../../utils/extensions/translator.dart';
+import '../welcome/welcome_page.dart';
+import '../../../data/services/shared_preferences_service.dart';
+import '../home/home_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -17,15 +19,11 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    timer = Timer(
-      Duration(seconds: 2),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => HomePage(),
-        ),
-      ),
-    );
+    timer = Timer(Duration(seconds: 2), () async {
+      final logged = (await SharedPreferencesService.instance).userLogged;
+      Navigator.pushReplacementNamed(
+          context, logged != null && logged ? '/home' : '/welcome');
+    });
   }
 
   @override

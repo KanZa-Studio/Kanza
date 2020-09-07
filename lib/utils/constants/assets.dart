@@ -14,6 +14,7 @@ class _AssetsIcons {
   final String noTask = 'assets/icons/no_task.svg';
   final String ru = 'assets/icons/ru.svg';
   final String share = 'assets/icons/share.svg';
+  final String welcome = 'assets/icons/welcome.svg';
 }
 
 class _AssetsLangs {
@@ -21,6 +22,7 @@ class _AssetsLangs {
 
   final String az = 'assets/langs/az.json';
   final String en = 'assets/langs/en.json';
+  final String ru = 'assets/langs/ru.json';
 }
 
 /// stores [assets details]

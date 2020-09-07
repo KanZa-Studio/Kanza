@@ -1,17 +1,22 @@
-  ///  EN: Kanza is to create list of things to do
-  ///  AZ: Kanza etməli olduğun işlərin siyahısını yaradır
-  ///  RU: Kanza должен создать список  nчеловек, которые нужно сделать
- const String kanzaDescription = 'kanza_description';
-
   ///  EN: Dark mode
   ///  AZ: Qaranlıq rejim
   ///  RU: Темный режим
  const String darkMode = 'dark_mode';
 
+  ///  EN: add
+  ///  AZ: əlavə et
+  ///  RU: Добавить
+ const String add = 'add';
+
   ///  EN: RU
   ///  AZ: Rus dili
   ///  RU: RU
  const String ru = 'ru';
+
+  ///  EN: AZE
+  ///  AZ: Azərbaycan dili
+  ///  RU: АЗЕ
+ const String aze = 'aze';
 
   ///  EN: Edit categories
   ///  AZ: Kateqoriyaları redaktə et
@@ -23,6 +28,11 @@
   ///  RU: Выберите дату
  const String pickDate = 'pick_date';
 
+  ///  EN: Error occured, please try again!
+  ///  AZ: Error occured, please try again!
+  ///  RU: Произошла ошибка, попробуйте еще раз!
+ const String loginFailed = 'login_failed';
+
   ///  EN: save
   ///  AZ: yadda saxla
   ///  RU: Сохранить
@@ -33,20 +43,30 @@
   ///  RU: Архив
  const String archives = 'archives';
 
-  ///  EN: Error occured, please try again!
-  ///  AZ: Error occured, please try again!
-  ///  RU: Произошла ошибка, попробуйте еще раз!
- const String loginFailed = 'login_failed';
+  ///  EN: Light mode
+  ///  AZ: Açıq rejim
+  ///  RU: Легкий режим
+ const String lightMode = 'light_mode';
+
+  ///  EN: colors
+  ///  AZ: Rənglər
+  ///  RU: Цвета
+ const String color = 'color';
+
+  ///  EN: About
+  ///  AZ: Haqqında
+  ///  RU: Около
+ const String about = 'about';
 
   ///  EN: Category
   ///  AZ: Kateqoriya
   ///  RU: Категория
  const String category = 'category';
 
-  ///  EN: About
-  ///  AZ: Haqqında
-  ///  RU: Около
- const String about = 'about';
+  ///  EN: Home
+  ///  AZ: Ana səhifə
+  ///  RU: Главная страница
+ const String home = 'home';
 
   ///  EN: Share App
   ///  AZ: Tətbiqi paylaş
@@ -58,10 +78,10 @@
   ///  RU: kanza.
  const String kanza = 'kanza';
 
-  ///  EN: Welcome to Kanza
-  ///  AZ: Kanzaya xoş gəldin
-  ///  RU: Добро пожаловать в Kanza
- const String welcomeToKanza = 'welcome_to_kanza';
+  ///  EN: There is already category with this name!
+  ///  AZ: Bu adda kateqoriya artıq mövcuddur!
+  ///  RU: Категория с таким названием уже существует!
+ const String categoryAddFail = 'category_add_fail';
 
   ///  EN: Details
   ///  AZ: Detallar
@@ -78,6 +98,11 @@
   ///  RU: Продолжить
  const String continueLogin = 'continue_login';
 
+  ///  EN: Today
+  ///  AZ: Bu gün
+  ///  RU: Сегодня
+ const String today = 'today';
+
   ///  EN: Tomorrow
   ///  AZ: Sabah
   ///  RU: Завтра
@@ -87,38 +112,3 @@
   ///  AZ: Başlıq
   ///  RU: Заголовок
  const String title = 'title';
-
-  ///  EN: add
-  ///  AZ: əlavə et
-  ///  RU: Добавить
- const String add = 'add';
-
-  ///  EN: AZE
-  ///  AZ: Azərbaycan dili
-  ///  RU: АЗЕ
- const String aze = 'aze';
-
-  ///  EN: colors
-  ///  AZ: Rənglər
-  ///  RU: Цвета
- const String color = 'color';
-
-  ///  EN: Light mode
-  ///  AZ: Açıq rejim
-  ///  RU: Легкий режим
- const String lightMode = 'light_mode';
-
-  ///  EN: Home
-  ///  AZ: Ana səhifə
-  ///  RU: Главная страница
- const String home = 'home';
-
-  ///  EN: There is already category with this name!
-  ///  AZ: Bu adda kateqoriya artıq mövcuddur!
-  ///  RU: Категория с таким названием уже существует!
- const String categoryAddFail = 'category_add_fail';
-
-  ///  EN: Today
-  ///  AZ: Bu gün
-  ///  RU: Сегодня
- const String today = 'today';

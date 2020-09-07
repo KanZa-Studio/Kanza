@@ -18,23 +18,22 @@ class SharedPreferencesService {
     return _instance;
   }
 
-  Future<bool> setUsername(String username) async =>
-      await _preferences.setString('username', username);
-
-  String get username => _preferences.getString('username');
-
-  Future<void> setLanguageCode(String languageCode) async =>
-      await _preferences.setString('languageCode', languageCode);
+  Future<void> setLanguageCode(String languageCode) =>
+      _preferences.setString('languageCode', languageCode);
 
   String get languageCode => _preferences.getString('languageCode');
 
-  Future<void> setCountryCode(String countryCode) async =>
-      await _preferences.setString('countryCode', countryCode);
+  Future<void> setCountryCode(String countryCode) =>
+      _preferences.setString('countryCode', countryCode);
 
   String get countryCode => _preferences.getString('countryCode');
 
-  Future<void> setDarkModeInfo(bool isDarkModeEnabled) async =>
-      await _preferences.setBool('theme', isDarkModeEnabled);
+  Future<void> setDarkModeInfo(bool isDarkModeEnabled) =>
+      _preferences.setBool('theme', isDarkModeEnabled);
 
   bool get isDarkModeEnabled => _preferences.getBool('theme');
+
+  Future<void> setUserLogged() => _preferences.setBool('logged', true);
+
+  bool get userLogged => _preferences.getBool('logged');
 }

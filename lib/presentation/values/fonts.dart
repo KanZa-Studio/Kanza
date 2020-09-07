@@ -32,16 +32,16 @@ const f12 = TextStyle(
   fontSize: 12,
 );
 
+const f14W500 = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+);
+
 // todo: ------------------------------------------
 
 const f24W900 = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w900,
-);
-
-const f14W500 = TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.w500,
 );
 
 const f20W500 = TextStyle(
