@@ -1,13 +1,11 @@
 {
     "kanza" : "kanza.",
-    "hello": "SALAM",
     "save": "yadda saxla",
     "add": "əlavə et",
     "category": "Kateqoriya",
     "color": "Rənglər",
     "welcome_to_kanza": "Kanzaya xoş gəldin",
     "kanza_description" : "Kanza etməli olduğun\nişlərin siyahısını yaradır",
-    "username": "İstifadəçi adı",
     "continue_login": "Davam et",
     "title": "Başlıq",
     "details": "Detallar",

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../blocs/theme_cubit/theme_cubit.dart';
+import '../../blocs/localization_cubit/localization_cubit.dart';
 import '../../utils/constants/assets.dart';
 import '../../utils/constants/language_keys.dart';
 import '../../utils/extensions/responsive_helper.dart';
@@ -34,14 +37,24 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
                 themeAware: true),
             _drawerItem(Assets.icons.share, shareApp.tr(), screenHeight,
                 themeAware: true),
-            _drawerItem(Assets.icons.eng, eng.tr(), screenHeight),
-            _drawerItem(Assets.icons.aze, aze.tr(), screenHeight),
-            _drawerItem(Assets.icons.ru, ru.tr(), screenHeight),
+            _drawerItem(Assets.icons.eng, eng.tr(), screenHeight,
+                onPressed: () =>
+                    context.bloc<LocalizationCubit>().changeLocale(eng)),
+            _drawerItem(Assets.icons.aze, aze.tr(), screenHeight,
+                onPressed: () =>
+                    context.bloc<LocalizationCubit>().changeLocale(aze)),
+            _drawerItem(Assets.icons.ru, ru.tr(), screenHeight,
+                onPressed: () =>
+                    context.bloc<LocalizationCubit>().changeLocale(ru)),
             _drawerItem(
-                Assets.icons.light,
-                Theme.of(context).isDark ? lightMode.tr() : darkMode.tr(),
-                screenHeight,
-                themeAware: true),
+              Assets.icons.light,
+              Theme.of(context).isDark ? lightMode.tr() : darkMode.tr(),
+              screenHeight,
+              themeAware: true,
+              onPressed: () => context
+                  .bloc<ThemeCubit>()
+                  .changeTheme(Theme.of(context).isDark ? false : true),
+            ),
             Expanded(child: SizedBox()),
             _drawerItem(null, about.tr(), screenHeight),
           ],
@@ -51,12 +64,12 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
   }
 
   Widget _drawerItem(String iconPath, String title, double screenHeight,
-      {bool themeAware = false}) {
+      {bool themeAware = false, VoidCallback onPressed}) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
         splashColor: Theme.of(context).primaryColor.withOpacity(.2),
-        onTap: () {},
+        onTap: onPressed?.call,
         child: Container(
           padding: EdgeInsets.only(
             left: 24,
@@ -78,11 +91,13 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
                 visible: iconPath != null,
                 child: const SizedBox(width: 14.0),
               ),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Theme.of(context).drawerItemTextColor,
-                    ),
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Theme.of(context).drawerItemTextColor,
+                      ),
+                ),
               ),
             ],
           ),
