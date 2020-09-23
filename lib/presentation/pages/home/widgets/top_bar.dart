@@ -27,7 +27,16 @@ class TopBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.menu, color: Theme.of(context).topBarDrawerOpenerColor),
+          InkWell(
+            onTap: () => Scaffold.of(context).openDrawer(),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16, right: 16, bottom: 16),
+              child: Icon(
+                Icons.menu,
+                color: Theme.of(context).topBarDrawerOpenerColor,
+              ),
+            ),
+          ),
           Expanded(
             child: Center(
               child: Text(
