@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kanza/data/services/database_service.dart';
 
+import './widgets/custom_fab.dart';
 import './widgets/task_item.dart';
 import './widgets/time_item.dart';
 import './widgets/top_bar.dart';
@@ -94,16 +95,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Tasks', style: Theme.of(context).textTheme.bodyText1),
+                  Text(tasks, style: Theme.of(context).textTheme.bodyText1)
+                      .tr(),
                   Row(
                     children: [
                       Text(
-                        'Filter',
+                        filter,
                         style: Theme.of(context).textTheme.overline.copyWith(
                               fontWeight: FontWeight.normal,
                               color: Theme.of(context).filterTextColor,
                             ),
-                      ),
+                      ).tr(),
                       const SizedBox(width: 8),
                       SvgPicture.asset(
                         Assets.icons.filter,
@@ -115,6 +117,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               Expanded(
                 child: CustomScrollView(
+                  controller: scrollController,
                   slivers: [
                     const SliverToBoxAdapter(child: SizedBox(height: 20)),
                     SliverList(
@@ -130,7 +133,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             createdAt: DateTime.now(),
                           ),
                         ),
-                        childCount: 3,
+                        childCount: 10,
                       ),
                     ),
                   ],
@@ -142,7 +145,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       floatingActionButton: ScaleTransition(
         scale: animation,
-        child: SizedBox(),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 39, right: 15),
+          child: CustomFab(),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
     );

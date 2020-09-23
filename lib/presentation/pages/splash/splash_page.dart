@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../data/services/shared_preferences_service.dart';
 import '../../../utils/constants/language_keys.dart';
 import '../../../utils/extensions/translator.dart';
-import '../welcome/welcome_page.dart';
-import '../../../data/services/shared_preferences_service.dart';
-import '../home/home_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override

@@ -7,9 +7,9 @@
     "continue_login": "Davam et",
     "title": "Başlıq",
     "details": "Detallar",
-    "today": "Bu gün",
-    "tomorrow": "Sabah",
-    "pick_date": "Tarixi seç",
+    "today": "BU GÜN",
+    "tomorrow": "SABAH",
+    "pick_date": "TARİXİ SEÇ",
     "edit_categories": "Kateqoriyaları redaktə et",
     "archives": "Arxivlər",
     "share_app": "Tətbiqi paylaş",
@@ -21,5 +21,7 @@
     "ru": "Rus dili",
     "dark_mode": "Qaranlıq rejim",
     "light_mode": "Açıq rejim",
-    "home": "Ana səhifə"
+    "home": "Ana səhifə",
+    "tasks": "Tapşırıqlar",
+    "filter": "Filtr"
 }

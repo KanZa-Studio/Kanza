@@ -69,8 +69,8 @@ class _TaskItemState extends State<TaskItem> {
               padding: const EdgeInsets.only(right: 15),
               child: SvgPicture.asset(
                 Assets.icons.bin,
-                width: 20,
-                height: 20,
+                width: 23,
+                height: 23,
               ),
             ),
           ],

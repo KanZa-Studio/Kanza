@@ -21,5 +21,7 @@
     "aze": "AZE",
     "ru": "RU",
     "dark_mode": "Dark mode",
-    "light_mode": "Light mode"
+    "light_mode": "Light mode",
+    "tasks": "Tasks",
+    "filter": "Filter"
 }

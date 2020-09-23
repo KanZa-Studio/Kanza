@@ -32,7 +32,10 @@ class TopBar extends StatelessWidget {
             child: Center(
               child: Text(
                 kanza,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                    color: Theme.of(context).isDark
+                        ? null
+                        : Theme.of(context).primaryColor),
               ).tr(),
             ),
           ),

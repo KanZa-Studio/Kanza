@@ -22,6 +22,8 @@ class LightThemeColor {
 
   static const Color kTodoItemSubtitleColor = Color(0xFF4E4E4E);
 
+  static const Color kFabButtonShadowColor = Color.fromRGBO(1, 118, 225, 0.1);
+
   /// --------------------
 
   static const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);
@@ -49,4 +51,9 @@ class DarkThemeColor {
   static const Color kDrawerBackgroundColor = Color.fromARGB(43, 0, 0, 0);
 
   static const Color kKanzaTitleTextColor = Color(0xFFF4F4F4);
+
+  static const Color kFabButtonShadowColor =
+      Color.fromRGBO(250, 250, 250, 0.11);
+
+  static const Color kFabButtonColor = Color(0xFF333232);
 }

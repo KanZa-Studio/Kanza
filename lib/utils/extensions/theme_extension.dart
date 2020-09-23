@@ -34,5 +34,12 @@ extension ThemeExtension on ThemeData {
       ? DarkThemeColor.kKanzaTitleTextColor
       : LightThemeColor.kDrawerIconColor;
 
+  Color get fabButtonColor =>
+      isDark ? DarkThemeColor.kFabButtonColor : Colors.white;
+
+  Color get fabButtonShadowColor => isDark
+      ? DarkThemeColor.kFabButtonShadowColor
+      : LightThemeColor.kFabButtonShadowColor;
+
   bool get isDark => brightness == Brightness.dark;
 }
