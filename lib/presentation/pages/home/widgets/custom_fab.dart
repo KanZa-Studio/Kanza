@@ -34,8 +34,10 @@ class _CustomFabState extends State<CustomFab> {
             splashColor: Colors.grey,
             borderRadius: BorderRadius.circular(30),
             onTap: () {
-              final controller = Scaffold.of(context)
-                  .showBottomSheet((context) => AddTodoBottomSheet());
+              final controller = Scaffold.of(context).showBottomSheet(
+                (context) => AddTodoBottomSheet(),
+                backgroundColor: Colors.transparent,
+              );
 
               setState(() {
                 _showFab = false;

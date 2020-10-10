@@ -24,11 +24,6 @@ class AddTodoBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 12),
-          Container(
-              width: 25,
-              height: 3,
-              color: LightThemeColor.bottomSheetHandlerColor),
           const SizedBox(height: 200),
         ],
       ),
