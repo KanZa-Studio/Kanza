@@ -6,7 +6,7 @@ import 'package:kanza/data/services/database_service.dart';
 import './widgets/custom_fab.dart';
 import './widgets/task_item.dart';
 import './widgets/time_item.dart';
-import './widgets/top_bar.dart';
+import '../../widgets/top_bar.dart';
 import '../../../utils/constants/assets.dart';
 import '../../../utils/constants/language_keys.dart';
 import '../../../utils/extensions/theme_extension.dart';
@@ -57,42 +57,42 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       drawer: KanzaDrawer(),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              const TopBar(),
-              const SizedBox(height: 20),
-              Container(
-                height: 50,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    TimeItem(
-                      title: today.tr(),
-                      backgroundColor:
-                          Theme.of(context).todayItemBackgroundColor,
-                      onClicked: () {},
-                      margin: const EdgeInsets.only(left: 1, right: 4),
-                      selected: true,
-                    ),
-                    TimeItem(
-                      title: tomorrow.tr(),
-                      backgroundColor:
-                          Theme.of(context).tomorrowItemBackgroundColor,
-                      onClicked: () {},
-                    ),
-                    TimeItem(
-                      title: pickDate.tr(),
-                      backgroundColor:
-                          Theme.of(context).pickDateItemBackgroundColor,
-                      onClicked: () {},
-                    ),
-                  ],
-                ),
+        child: Column(
+          children: [
+            TopBar(titleKey: kanza),
+            const SizedBox(height: 20),
+            Container(
+              height: 50,
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  TimeItem(
+                    title: today.tr(),
+                    backgroundColor: Theme.of(context).todayItemBackgroundColor,
+                    onClicked: () {},
+                    margin: const EdgeInsets.only(left: 1, right: 4),
+                    selected: true,
+                  ),
+                  TimeItem(
+                    title: tomorrow.tr(),
+                    backgroundColor:
+                        Theme.of(context).tomorrowItemBackgroundColor,
+                    onClicked: () {},
+                  ),
+                  TimeItem(
+                    title: pickDate.tr(),
+                    backgroundColor:
+                        Theme.of(context).pickDateItemBackgroundColor,
+                    onClicked: () {},
+                  ),
+                ],
               ),
-              const SizedBox(height: 31),
-              Row(
+            ),
+            const SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(tasks, style: Theme.of(context).textTheme.bodyText1)
@@ -115,7 +115,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              Expanded(
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomScrollView(
                   controller: scrollController,
                   slivers: [
@@ -139,8 +142,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: ScaleTransition(

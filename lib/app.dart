@@ -6,7 +6,7 @@ import './my_scroll_behavior.dart';
 import './presentation/pages/splash/splash_page.dart';
 import './presentation/values/themes.dart';
 import './utils/localization_helper/localization_helper.dart';
-import './presentation/router.dart';
+import './presentation/router.dart' as r;
 import './blocs/localization_cubit/localization_cubit.dart';
 import './blocs/theme_cubit/theme_cubit.dart';
 
@@ -35,7 +35,7 @@ class KanzaApp extends StatelessWidget {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              onGenerateRoute: Router.onGenerateRoute,
+              onGenerateRoute: r.Router.onGenerateRoute,
               builder: (context, child) {
                 return ScrollConfiguration(
                   behavior: MyBehaviour(),

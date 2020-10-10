@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kanza/presentation/pages/about/about_page.dart';
 
 import '../../blocs/theme_cubit/theme_cubit.dart';
 import '../../blocs/localization_cubit/localization_cubit.dart';
@@ -56,7 +57,13 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
                   .changeTheme(Theme.of(context).isDark ? false : true),
             ),
             Expanded(child: SizedBox()),
-            _drawerItem(null, about.tr(), screenHeight),
+            _drawerItem(null, about.tr(), screenHeight, onPressed: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => AboutPage()),
+              );
+            }),
           ],
         ),
       ),
