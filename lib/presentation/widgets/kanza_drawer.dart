@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kanza/presentation/pages/about/about_page.dart';
 
-import '../../blocs/theme_cubit/theme_cubit.dart';
 import '../../blocs/localization_cubit/localization_cubit.dart';
+import '../../blocs/theme_cubit/theme_cubit.dart';
 import '../../utils/constants/assets.dart';
-import '../../utils/constants/language_keys.dart';
 import '../../utils/extensions/responsive_helper.dart';
 import '../../utils/extensions/theme_extension.dart';
-import '../../utils/extensions/translator.dart';
 
 class KanzaDrawer extends StatefulWidget {
   @override
@@ -28,28 +27,32 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
           children: [
             SizedBox(height: screenHeight * 0.1),
             Text(
-              kanza,
+              'kanza.',
               style: Theme.of(context).textTheme.headline3,
-            ).tr(),
+            ),
             SizedBox(height: screenHeight * 0.13),
-            _drawerItem(Assets.icons.home, home.tr(), screenHeight,
+            _drawerItem(Assets.icons.home, AppLocalizations.of(context).home,
+                screenHeight,
                 themeAware: true),
-            _drawerItem(Assets.icons.drawerArchive, archives.tr(), screenHeight,
+            _drawerItem(Assets.icons.drawerArchive,
+                AppLocalizations.of(context).archives, screenHeight,
                 themeAware: true),
-            _drawerItem(Assets.icons.share, shareApp.tr(), screenHeight,
+            _drawerItem(Assets.icons.share,
+                AppLocalizations.of(context).share_app, screenHeight,
                 themeAware: true),
-            _drawerItem(Assets.icons.eng, eng.tr(), screenHeight,
+            _drawerItem(Assets.icons.eng, AppLocalizations.of(context).eng,
+                screenHeight,
                 onPressed: () =>
-                    context.bloc<LocalizationCubit>().changeLocale(eng)),
-            _drawerItem(Assets.icons.aze, aze.tr(), screenHeight,
+                    context.bloc<LocalizationCubit>().changeLocale('eng')),
+            _drawerItem(Assets.icons.aze, AppLocalizations.of(context).aze,
+                screenHeight,
                 onPressed: () =>
-                    context.bloc<LocalizationCubit>().changeLocale(aze)),
-            _drawerItem(Assets.icons.ru, ru.tr(), screenHeight,
-                onPressed: () =>
-                    context.bloc<LocalizationCubit>().changeLocale(ru)),
+                    context.bloc<LocalizationCubit>().changeLocale('aze')),
             _drawerItem(
               Assets.icons.light,
-              Theme.of(context).isDark ? lightMode.tr() : darkMode.tr(),
+              Theme.of(context).isDark
+                  ? AppLocalizations.of(context).light_mode
+                  : AppLocalizations.of(context).dark_mode,
               screenHeight,
               themeAware: true,
               onPressed: () => context
@@ -57,7 +60,8 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
                   .changeTheme(Theme.of(context).isDark ? false : true),
             ),
             Expanded(child: SizedBox()),
-            _drawerItem(null, about.tr(), screenHeight, onPressed: () {
+            _drawerItem(null, AppLocalizations.of(context).about, screenHeight,
+                onPressed: () {
               Navigator.pop(context);
               Navigator.push(
                 context,

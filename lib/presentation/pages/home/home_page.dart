@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kanza/data/services/database_service.dart';
 
 import './widgets/custom_fab.dart';
 import './widgets/task_item.dart';
 import './widgets/time_item.dart';
-import '../../widgets/top_bar.dart';
 import '../../../utils/constants/assets.dart';
-import '../../../utils/constants/language_keys.dart';
 import '../../../utils/extensions/theme_extension.dart';
-import '../../../utils/extensions/translator.dart';
 import '../../widgets/kanza_drawer.dart';
+import '../../widgets/top_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -59,7 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: SafeArea(
         child: Column(
           children: [
-            TopBar(titleKey: kanza),
+            TopBar(title: 'kanza.'),
             const SizedBox(height: 20),
             Container(
               height: 50,
@@ -68,20 +67,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 scrollDirection: Axis.horizontal,
                 children: [
                   TimeItem(
-                    title: today.tr(),
+                    title: AppLocalizations.of(context).today,
                     backgroundColor: Theme.of(context).todayItemBackgroundColor,
                     onClicked: () {},
                     margin: const EdgeInsets.only(left: 1, right: 4),
                     selected: true,
                   ),
                   TimeItem(
-                    title: tomorrow.tr(),
+                    title: AppLocalizations.of(context).tomorrow,
                     backgroundColor:
                         Theme.of(context).tomorrowItemBackgroundColor,
                     onClicked: () {},
                   ),
                   TimeItem(
-                    title: pickDate.tr(),
+                    title: AppLocalizations.of(context).pick_date,
                     backgroundColor:
                         Theme.of(context).pickDateItemBackgroundColor,
                     onClicked: () {},
@@ -95,17 +94,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(tasks, style: Theme.of(context).textTheme.bodyText1)
-                      .tr(),
+                  Text(
+                    AppLocalizations.of(context).tasks,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                   Row(
                     children: [
                       Text(
-                        filter,
+                        AppLocalizations.of(context).filter,
                         style: Theme.of(context).textTheme.overline.copyWith(
                               fontWeight: FontWeight.normal,
                               color: Theme.of(context).filterTextColor,
                             ),
-                      ).tr(),
+                      ),
                       const SizedBox(width: 8),
                       SvgPicture.asset(
                         Assets.icons.filter,

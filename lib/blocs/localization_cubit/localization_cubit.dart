@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'package:flutter/widgets.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../data/services/shared_preferences_service.dart';
 import '../../presentation/values/supported_locales.dart';
-import '../../utils/constants/language_keys.dart';
 
 part 'localization_state.dart';
 
@@ -20,12 +19,10 @@ class LocalizationCubit extends Cubit<LocalizationState> {
 
     if (selectedLanguageCode == defaultLanguageCode) return;
 
-    if (selectedLanguageCode == aze) {
+    if (selectedLanguageCode == 'aze') {
       _loadLanguage(sharedPrefService, Locale('az', 'AZ'));
-    } else if (selectedLanguageCode == eng) {
+    } else if (selectedLanguageCode == 'eng') {
       _loadLanguage(sharedPrefService, Locale('en', 'US'));
-    } else if (selectedLanguageCode == ru) {
-      _loadLanguage(sharedPrefService, Locale('ru', 'RU'));
     }
   }
 

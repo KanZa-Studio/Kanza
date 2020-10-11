@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/extensions/theme_extension.dart';
-import '../../utils/extensions/translator.dart';
 import '../values/colors.dart';
 
 class TopBar extends StatelessWidget {
   TopBar({
-    @required this.titleKey,
+    @required this.title,
     this.leadingIcon,
     this.centerTitle = true,
     this.onPressed,
   });
 
   final bool centerTitle;
-  final String titleKey;
+  final String title;
   final IconData leadingIcon;
   final VoidCallback onPressed;
 
@@ -61,10 +60,10 @@ class TopBar extends StatelessWidget {
   }
 
   Widget _titleWidget(BuildContext context) => Text(
-        titleKey,
+        title,
         style: Theme.of(context).textTheme.headline6.copyWith(
             color: Theme.of(context).isDark
                 ? null
                 : Theme.of(context).primaryColor),
-      ).tr();
+      );
 }

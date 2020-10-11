@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants/language_keys.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/top_bar.dart';
 
 class AboutPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class AboutPage extends StatelessWidget {
         child: Column(
           children: [
             TopBar(
-              titleKey: save,
+              title: AppLocalizations.of(context).save,
               leadingIcon: Icons.arrow_back,
               centerTitle: false,
               onPressed: () => Navigator.pop(context),

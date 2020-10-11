@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/services/shared_preferences_service.dart';
 import '../../../utils/constants/assets.dart';
-import '../../../utils/constants/language_keys.dart';
 import '../../../utils/extensions/responsive_helper.dart';
-import '../../../utils/extensions/translator.dart';
 
 class WelcomPage extends StatelessWidget {
   @override
@@ -38,9 +37,9 @@ class WelcomPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 46),
                 child: Text(
-                  continueLogin,
+                  AppLocalizations.of(context).continue_login,
                   style: Theme.of(context).textTheme.button,
-                ).tr(),
+                ),
               ),
             ),
           ),
