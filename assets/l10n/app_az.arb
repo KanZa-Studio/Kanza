@@ -24,5 +24,14 @@
     "light_mode": "Açıq rejim",
     "home": "Ana səhifə",
     "tasks": "Tapşırıqlar",
-    "filter": "Filter"
+    "filter": "Filter",
+    "aboutTheKanza": "Kanza haqqında\n{version}\n\n",
+    "appDescription": "\"Kanza\" to-do list yaratmaq üçün\ntərtib olunub. Tətbiqdə bir neçə\nxüsusiyyətlər var\n\n\n\n",
+    "team": "Komanda\n\n\n",
+    "zahir": "Zahir Mirzəməmmədli\n\n",
+    "zahirDescription": "UI/UX DESIGNER & Front End Developer\n",
+    "zahirAccount": "https://www.linkedin.com/in/zahir-mirzamammadli\n\n\n",
+    "kanan": "Kənan Yusubov\n\n",
+    "kananDescription": "Mid-Level Fluter Developer\n",
+    "kananAccount": "https://www.linkedin.com/in/kananyusubov"
 }

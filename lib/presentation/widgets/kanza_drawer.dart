@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanza/presentation/pages/about/about_page.dart';
 
 import '../../blocs/localization_cubit/localization_cubit.dart';
 import '../../blocs/theme_cubit/theme_cubit.dart';
 import '../../utils/constants/assets.dart';
 import '../../utils/extensions/responsive_helper.dart';
 import '../../utils/extensions/theme_extension.dart';
+import '../pages/about/about_page.dart';
 
 class KanzaDrawer extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
                 AppLocalizations.of(context).archives, screenHeight,
                 themeAware: true),
             _drawerItem(Assets.icons.share,
-                AppLocalizations.of(context).share_app, screenHeight,
+                AppLocalizations.of(context).shareApp, screenHeight,
                 themeAware: true),
             _drawerItem(Assets.icons.eng, AppLocalizations.of(context).eng,
                 screenHeight,
@@ -51,8 +51,8 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
             _drawerItem(
               Assets.icons.light,
               Theme.of(context).isDark
-                  ? AppLocalizations.of(context).light_mode
-                  : AppLocalizations.of(context).dark_mode,
+                  ? AppLocalizations.of(context).lightMode
+                  : AppLocalizations.of(context).darkMode,
               screenHeight,
               themeAware: true,
               onPressed: () => context

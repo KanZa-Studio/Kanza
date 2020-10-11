@@ -13,7 +13,7 @@ class AboutPage extends StatelessWidget {
         child: Column(
           children: [
             TopBar(
-              title: AppLocalizations.of(context).save,
+              title: AppLocalizations.of(context).about,
               leadingIcon: Icons.arrow_back,
               centerTitle: false,
               onPressed: () => Navigator.pop(context),
@@ -25,39 +25,32 @@ class AboutPage extends StatelessWidget {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: 'About the Kanza\n v0.0.4\n\n',
+                      text:
+                          AppLocalizations.of(context).aboutTheKanza('v0.0.4'),
                       children: [
                         TextSpan(
-                          text: '\“Kanza\” is designed to create\na to-do-list.'
-                              'The mobile application\nhas many features\n\n\n\n',
+                          text: AppLocalizations.of(context).appDescription,
                         ),
                         TextSpan(
-                          text: 'Team\n\n\n',
+                          text: AppLocalizations.of(context).team,
                         ),
                         TextSpan(
-                          text: 'Zahir Mirzamammadli\n\n',
+                          text: AppLocalizations.of(context).zahir,
                         ),
                         TextSpan(
-                          text: 'UI/UX DESIGNER\n\n',
+                          text: AppLocalizations.of(context).zahirDescription,
                         ),
                         TextSpan(
-                          text: 'I am Zahir Mirzamammadli,\n'
-                              'Front End Developer and\nUI/UX Designer.\n\n',
+                          text: AppLocalizations.of(context).zahirAccount,
                         ),
                         TextSpan(
-                          text: 'https://www.linkedin.com/in/'
-                              'zahir-mirzamammadli\n\n\n',
+                          text: AppLocalizations.of(context).kanan,
                         ),
                         TextSpan(
-                          text: 'Kanan Yusubov\n\n',
+                          text: AppLocalizations.of(context).kananDescription,
                         ),
                         TextSpan(
-                          text: 'I am Kanan Yusubov,\nMid-level '
-                              'Flutter Developer.\n\n',
-                        ),
-                        TextSpan(
-                          text:
-                              'https://www.linkedin.com/in/kananyusubov\n\n\n',
+                          text: AppLocalizations.of(context).kananAccount,
                         ),
                       ],
                     ),

@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: SafeArea(
         child: Column(
           children: [
-            TopBar(title: 'kanza.'),
+            TopBar(title: 'kanza'),
             const SizedBox(height: 20),
             Container(
               height: 50,
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     onClicked: () {},
                   ),
                   TimeItem(
-                    title: AppLocalizations.of(context).pick_date,
+                    title: AppLocalizations.of(context).pickDate,
                     backgroundColor:
                         Theme.of(context).pickDateItemBackgroundColor,
                     onClicked: () {},
