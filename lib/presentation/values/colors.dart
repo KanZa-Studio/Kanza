@@ -24,6 +24,8 @@ class LightThemeColor {
 
   static const Color kFabButtonShadowColor = Color.fromRGBO(1, 118, 225, 0.1);
 
+  static const Color kAppDescriptionTextColor = Color(0xFF5B5B5B);
+
   /// --------------------
 
   static const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);
@@ -56,4 +58,6 @@ class DarkThemeColor {
       Color.fromRGBO(250, 250, 250, 0.11);
 
   static const Color kFabButtonColor = Color(0xFF333232);
+
+  static const Color kAppDescriptionTextColor = Color(0xFFE1E1E1);
 }

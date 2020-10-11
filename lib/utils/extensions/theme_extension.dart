@@ -41,5 +41,9 @@ extension ThemeExtension on ThemeData {
       ? DarkThemeColor.kFabButtonShadowColor
       : LightThemeColor.kFabButtonShadowColor;
 
+  Color get appDescriptionTextColor => isDark
+      ? DarkThemeColor.kAppDescriptionTextColor
+      : LightThemeColor.kAppDescriptionTextColor;
+
   bool get isDark => brightness == Brightness.dark;
 }

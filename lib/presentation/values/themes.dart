@@ -12,6 +12,7 @@ final lightTheme = ThemeData(
   textTheme: TextTheme(
       headline2: f60W900.copyWith(color: Colors.white),
       headline3: f40W900.copyWith(color: LightThemeColor.kPrimaryColor),
+      headline4: f20W500.copyWith(color: LightThemeColor.kPrimaryColor),
       headline6: f22W900,
       bodyText1: f16w500.copyWith(color: Colors.black),
       caption: f12.copyWith(color: LightThemeColor.kTodoItemSubtitleColor),
@@ -37,6 +38,7 @@ final darkTheme = ThemeData(
   textTheme: TextTheme(
     headline2: f60W900.copyWith(color: Colors.white),
     headline3: f40W900.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
+    headline4: f20W500.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
     headline6: f22W900.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
     bodyText1: f16w500.copyWith(color: DarkThemeColor.homeTasksTextColor),
     caption: f12.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),

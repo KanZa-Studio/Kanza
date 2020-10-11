@@ -61,19 +61,19 @@
         }
       }
     },
-    "appDescription": "\"Kanza\" is designed to create\na to-do-list. The mobile application\nhas many features\n\n\n\n",
+    "appDescription": "\"Kanza\" is designed to create\na to-do-list. The mobile application\nhas many features\n\n\n",
     "@appDescription": {},
-    "team": "Team\n\n\n",
+    "team": "Team\n\n",
     "@team": {},
     "zahir": "Zahir Mirzamammadli\n\n",
     "@zahir": {},
-    "zahirDescription": "UI/UX DESIGNER & Front End Developer\n",
+    "zahirDescription": "UI/UX DESIGNER & FRONT END DEVELOPER\n",
     "@zahirDescription": {},
     "zahirAccount": "https://www.linkedin.com/in/zahir-mirzamammadli\n\n\n",
     "@zahirAccount": {},
     "kanan": "Kanan Yusubov\n\n",
     "@kanan": {},
-    "kananDescription": "Mid-Level Fluter Developer\n",
+    "kananDescription": "MID-LEVEL FLUTTER DEVELOPER\n",
     "@kananDescription": {},
     "kananAccount": "https://www.linkedin.com/in/kananyusubov",
     "@kananAccount": {}

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+const f20W500 = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.0,
+);
+
 const f60W900 = TextStyle(
   fontSize: 60,
   fontWeight: FontWeight.w900,
@@ -42,10 +48,4 @@ const f14W500 = TextStyle(
 const f24W900 = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w900,
-);
-
-const f20W500 = TextStyle(
-  fontSize: 20,
-  fontWeight: FontWeight.w500,
-  color: Colors.black,
 );
