@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../data/services/shared_preferences_service.dart';
 import '../../presentation/values/supported_locales.dart';
+import '../../data/services/preferences_store_service.dart';
 
 part 'localization_state.dart';
 
@@ -13,42 +13,37 @@ class LocalizationCubit extends Cubit<LocalizationState> {
   LocalizationCubit(Locale locale)
       : super(LocalizationState(locale ?? supportedLocales[0]));
 
+  final _preferencesStoreService = PreferencesStoreService.instance;
+
   Future<void> changeLocale(String selectedLanguageCode) async {
-    final sharedPrefService = await SharedPreferencesService.instance;
-    final defaultLanguageCode = sharedPrefService.languageCode;
+    final defaultLanguageCode = _preferencesStoreService.currentLanguageCode;
 
-    if (selectedLanguageCode == defaultLanguageCode) return;
+    if (defaultLanguageCode == selectedLanguageCode) return;
 
-    if (selectedLanguageCode == 'aze') {
-      _loadLanguage(sharedPrefService, Locale('az', 'AZ'));
-    } else if (selectedLanguageCode == 'eng') {
-      _loadLanguage(sharedPrefService, Locale('en', 'US'));
+    if (selectedLanguageCode == 'az') {
+      _preferencesStoreService.setLanguageCode('az');
+      _preferencesStoreService.setCountryCode('AZ');
+    } else {
+      _preferencesStoreService.setLanguageCode('en');
+      _preferencesStoreService.setLanguageCode('US');
     }
   }
 
   Future<Locale> loadDefaultLocale() async {
-    final sharedPrefService = await SharedPreferencesService.instance;
-    final defaultLanguageCode = sharedPrefService.languageCode;
+    final defaultLanguageCode = _preferencesStoreService.currentLanguageCode;
+    final defaultCountryCode = _preferencesStoreService.currentLanguageCode;
 
-    if (defaultLanguageCode == null) {
-      _loadLanguage(sharedPrefService, supportedLocales[0], false);
-      return supportedLocales[0];
+    var defaultLocale;
+
+    if (defaultLanguageCode == null && defaultCountryCode == null) {
+      defaultLocale = Locale('en', 'US');
+
+      _preferencesStoreService.setLanguageCode('en');
+      _preferencesStoreService.setCountryCode('US');
     } else {
-      final defaultCountryCode = sharedPrefService.countryCode;
-
-      final defaultLocale = Locale(defaultLanguageCode, defaultCountryCode);
-
-      _loadLanguage(sharedPrefService, defaultLocale, false);
-      return defaultLocale;
+      defaultLocale = Locale(defaultLanguageCode, defaultCountryCode);
     }
-  }
 
-  void _loadLanguage(
-      SharedPreferencesService sharedPreferencesService, Locale locale,
-      [bool notifyState = true]) async {
-    await sharedPreferencesService.setLanguageCode(locale.languageCode);
-    await sharedPreferencesService.setCountryCode(locale.countryCode);
-
-    if (notifyState) emit(LocalizationState(locale));
+    return defaultLocale;
   }
 }

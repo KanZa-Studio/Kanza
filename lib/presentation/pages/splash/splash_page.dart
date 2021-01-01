@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import '../../../data/services/shared_preferences_service.dart';
+import '../../../data/services/preferences_store_service.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -15,9 +15,12 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     timer = Timer(Duration(seconds: 2), () async {
-      final logged = (await SharedPreferencesService.instance).userLogged;
+      final logged = PreferencesStoreService.instance.isUserLogged;
+
       Navigator.pushReplacementNamed(
-          context, logged != null && logged ? '/home' : '/welcome');
+        context,
+        logged != null && logged ? '/home' : '/welcome',
+      );
     });
   }
 

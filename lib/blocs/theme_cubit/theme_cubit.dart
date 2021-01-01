@@ -1,35 +1,57 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/services/shared_preferences_service.dart';
+import '../../data/services/preferences_store_service.dart';
 
 part './theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit(ThemeMode defaultThemeMode) : super(ThemeState(defaultThemeMode));
 
-  Future<void> changeTheme(bool value) async {
-    final sharedPrefService = await SharedPreferencesService.instance;
-    final isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
+  final _preferencesStoreService = PreferencesStoreService.instance;
+
+  final _darkModeEnabledController = StreamController<bool>();
+  Stream<bool> get darkModeEnabled => _darkModeEnabledController.stream;
+
+  void changeTheme(bool value) async {
+    final isDarkModeEnabled = _preferencesStoreService.isDarkModeEnabled;
 
     if (isDarkModeEnabled == value) return;
 
-    await sharedPrefService.setDarkModeInfo(value);
+    await _preferencesStoreService.setDarkModeInfo(value);
+
     emit(ThemeState(value ? ThemeMode.dark : ThemeMode.light));
   }
 
   Future<ThemeMode> loadDefaultTheme() async {
-    final sharedPrefService = await SharedPreferencesService.instance;
-    final isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
+    final isDarkModeEnabled = _preferencesStoreService.isDarkModeEnabled;
+
+    ThemeMode defaultThemeMode;
 
     if (isDarkModeEnabled == null) {
-      await sharedPrefService.setDarkModeInfo(false);
-      return ThemeMode.light;
+      /// it will check that if default system theme if [Dark] or[Light]
+
+      if (ThemeMode.system == ThemeMode.dark) {
+        defaultThemeMode = ThemeMode.dark;
+      } else {
+        defaultThemeMode = ThemeMode.light;
+      }
     } else {
-      ThemeMode defaultThemeMode =
-          isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
-      return defaultThemeMode;
+      /// if user selected any theme manually in app
+      /// then it will be loaded along app while
+      /// user clear all data of app
+      defaultThemeMode = isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
     }
+
+    return defaultThemeMode;
+  }
+
+  @override
+  Future<void> close() {
+    _darkModeEnabledController?.close();
+    return super.close();
   }
 }
