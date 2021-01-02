@@ -23,9 +23,11 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     if (selectedLanguageCode == 'az') {
       _preferencesStoreService.setLanguageCode('az');
       _preferencesStoreService.setCountryCode('AZ');
+      emit(LocalizationState(supportedLocales[1]));
     } else {
       _preferencesStoreService.setLanguageCode('en');
       _preferencesStoreService.setLanguageCode('US');
+      emit(LocalizationState(supportedLocales[0]));
     }
   }
 

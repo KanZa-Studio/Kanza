@@ -43,11 +43,11 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
             _drawerItem(Assets.icons.eng, AppLocalizations.of(context).eng,
                 screenHeight,
                 onPressed: () =>
-                    context.bloc<LocalizationCubit>().changeLocale('eng')),
+                    context.bloc<LocalizationCubit>().changeLocale('en')),
             _drawerItem(Assets.icons.aze, AppLocalizations.of(context).aze,
                 screenHeight,
                 onPressed: () =>
-                    context.bloc<LocalizationCubit>().changeLocale('aze')),
+                    context.bloc<LocalizationCubit>().changeLocale('az')),
             _drawerItem(
               Assets.icons.light,
               Theme.of(context).isDark
