@@ -32,42 +32,34 @@
  *OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
-class PreferencesStoreService {
-  PreferencesStoreService._();
+part 'task.g.dart';
 
-  /// initialized [PreferencesStoreService]
-  /// and opens [PreferencesBox] to store preferences
-  static Future<void> init() async {
-    if (_instance == null) {
-      final box = await Hive.openBox('preferencesBox');
-      _instance = PreferencesStoreService._();
-      _instance._preferencesBox = box;
-    }
-  }
+enum Category { today, tommorow, other, unknown }
 
-  static PreferencesStoreService _instance;
-  static PreferencesStoreService get instance => _instance;
+@HiveType(typeId: 0)
+class Task {
+  Task({
+    @required this.id,
+    @required this.title,
+    this.details,
+    this.dateTime,
+    this.isDone = false,
+    this.category = Category.unknown,
+  });
 
-  Box _preferencesBox;
-
-  Future<void> setDarkModeInfo(bool isDarkModeEnabled) =>
-      _preferencesBox.put('theme', isDarkModeEnabled);
-
-  bool get isDarkModeEnabled => _preferencesBox.get('theme');
-
-  Future<void> setUserLogged() => _preferencesBox.put('user_logged', true);
-
-  bool get isUserLogged => _preferencesBox.get('user_logged');
-
-  Future<void> setLanguageCode(String languageCode) =>
-      _preferencesBox.put('languageCode', languageCode);
-
-  String get currentLanguageCode => _preferencesBox.get('languageCode');
-
-  Future<void> setCountryCode(String languageCode) =>
-      _preferencesBox.put('countryCode', languageCode);
-
-  String get currentCountryCode => _preferencesBox.get('countryCode');
+  @HiveField(0)
+  final String id;
+  @HiveField(1)
+  final String title;
+  @HiveField(2)
+  final String details;
+  @HiveField(3)
+  final DateTime dateTime;
+  @HiveField(4)
+  final bool isDone;
+  @HiveField(5)
+  final Category category;
 }

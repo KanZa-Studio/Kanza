@@ -43,8 +43,10 @@ import 'package:logging/logging.dart';
 import '../blocs/kanza_bloc_observer.dart';
 import '../blocs/localization_cubit/localization_cubit.dart';
 import '../blocs/theme_cubit/theme_cubit.dart';
-import '../data/services/preferences_store_service.dart';
 import '../data/services/logger_service.dart';
+import '../data/services/preferences_store_service.dart';
+import '../data/services/task_store_service.dart';
+import '../data/models/task.dart';
 
 class Configs {
   /// You should await for it to ensure that
@@ -71,6 +73,12 @@ class Configs {
 
     _logger.config('fetching default ThemeMode');
     themeMode = await _themeMode;
+
+    _logger.config('TypeAdapters registering');
+    Hive.registerAdapter(TaskAdapter());
+
+    _logger.config('initializing TaskStoreService');
+    await TaskStoreService.init();
   }
 
   static Locale locale;

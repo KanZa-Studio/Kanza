@@ -34,40 +34,60 @@
 
 import 'package:hive/hive.dart';
 
-class PreferencesStoreService {
-  PreferencesStoreService._();
+import '../models/task.dart';
 
-  /// initialized [PreferencesStoreService]
-  /// and opens [PreferencesBox] to store preferences
+class TaskStoreService {
+  TaskStoreService._();
+
+  static TaskStoreService _instance;
+  static TaskStoreService get instance => _instance;
+
+  Box<List<Task>> _tasksBox;
+
+  List<Task> _tasks = [];
+  List<Task> _archievedTasks = [];
+
   static Future<void> init() async {
     if (_instance == null) {
-      final box = await Hive.openBox('preferencesBox');
-      _instance = PreferencesStoreService._();
-      _instance._preferencesBox = box;
+      final box = await Hive.openBox<List<Task>>('tasksBox');
+      _instance = TaskStoreService._();
+      _instance._tasksBox = box;
     }
   }
 
-  static PreferencesStoreService _instance;
-  static PreferencesStoreService get instance => _instance;
+  Future<void> addNewTask(Task task) {
+    _tasks.add(task);
+    return _tasksBox.put('tasks', _tasks);
+  }
 
-  Box _preferencesBox;
+  Future<void> addToArchievedTask(Task task) {
+    _tasks.removeWhere((t) => t.id == task.id);
+    _archievedTasks.add(task);
 
-  Future<void> setDarkModeInfo(bool isDarkModeEnabled) =>
-      _preferencesBox.put('theme', isDarkModeEnabled);
+    _tasksBox.put('tasks', _tasks);
+    return _tasksBox.put('archievedTasks', _archievedTasks);
+  }
 
-  bool get isDarkModeEnabled => _preferencesBox.get('theme');
+  Future<void> deleteTask(String taskId) {
+    _tasks.removeWhere((task) => task.id == taskId);
+    return _tasksBox.put('tasks', _tasks);
+  }
 
-  Future<void> setUserLogged() => _preferencesBox.put('user_logged', true);
+  Future<void> unarchiveTask(Task task) {
+    _archievedTasks.removeWhere((t) => t.id == task.id);
+    _tasks.add(task);
 
-  bool get isUserLogged => _preferencesBox.get('user_logged');
+    _tasksBox.put('archievedTasks', _archievedTasks);
+    return _tasksBox.put('tasks', _tasks);
+  }
 
-  Future<void> setLanguageCode(String languageCode) =>
-      _preferencesBox.put('languageCode', languageCode);
+  Future<List<Task>> getAllTasks() async {
+    _tasks = _tasksBox.get('tasks');
+    return _tasks;
+  }
 
-  String get currentLanguageCode => _preferencesBox.get('languageCode');
-
-  Future<void> setCountryCode(String languageCode) =>
-      _preferencesBox.put('countryCode', languageCode);
-
-  String get currentCountryCode => _preferencesBox.get('countryCode');
+  Future<List<Task>> getArchievedTasks() async {
+    _archievedTasks = _tasksBox.get('archievedTasks');
+    return _archievedTasks;
+  }
 }

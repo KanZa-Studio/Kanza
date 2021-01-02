@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanza/data/services/database_service.dart';
 
 import './widgets/custom_fab.dart';
-import './widgets/task_item.dart';
 import './widgets/time_item.dart';
 import '../../../utils/constants/assets.dart';
 import '../../../utils/extensions/theme_extension.dart';
@@ -115,6 +113,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ],
+              ),
+            ),
+            Expanded(
+              child: SvgPicture.asset(
+                'assets/icons/no_item.svg',
+                fit: BoxFit.contain,
               ),
             ),
             // Expanded(
