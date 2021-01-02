@@ -42,6 +42,6 @@ final darkTheme = ThemeData(
     headline6: f22W900.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
     bodyText1: f16w500.copyWith(color: DarkThemeColor.homeTasksTextColor),
     caption: f12.copyWith(color: DarkThemeColor.kKanzaTitleTextColor),
-    overline: f10W500.copyWith(color: Colors.black),
+    overline: f10W500.copyWith(color: Colors.white),
   ),
 );

@@ -35,7 +35,9 @@ class TimeItem extends StatelessWidget {
       child: Center(
         child: Text(
           title.toUpperCase(),
-          style: Theme.of(context).textTheme.overline,
+          style: Theme.of(context).textTheme.overline.copyWith(
+                color: Colors.black,
+              ),
         ),
       ),
     );

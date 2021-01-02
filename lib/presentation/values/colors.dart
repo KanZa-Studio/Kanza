@@ -26,6 +26,8 @@ class LightThemeColor {
 
   static const Color kAppDescriptionTextColor = Color(0xFF5B5B5B);
 
+  static const Color kTextFieldUnderlineColor = Color(0xFFE3E3E3);
+
   /// --------------------
 
   static const Color pickADateTimeItemBackground = Color(0xFFB1F8C1);

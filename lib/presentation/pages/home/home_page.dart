@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kanza/presentation/pages/home/widgets/task_item.dart';
 
 import './widgets/custom_fab.dart';
 import './widgets/time_item.dart';
@@ -115,12 +116,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            Expanded(
-              child: SvgPicture.asset(
-                'assets/icons/no_item.svg',
-                fit: BoxFit.contain,
-              ),
-            ),
+            TaskItem(),
+            // Expanded(
+            //   child: SvgPicture.asset(
+            //     'assets/icons/no_item.svg',
+            //     fit: BoxFit.contain,
+            //   ),
+            // ),
             // Expanded(
             //   child: Padding(
             //     padding: const EdgeInsets.symmetric(horizontal: 15),

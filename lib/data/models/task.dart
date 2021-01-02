@@ -48,6 +48,7 @@ class Task {
     this.dateTime,
     this.isDone = false,
     this.category = Category.unknown,
+    this.done = false,
   });
 
   @HiveField(0)
@@ -62,4 +63,6 @@ class Task {
   final bool isDone;
   @HiveField(5)
   final Category category;
+  @HiveField(6)
+  bool done;
 }
