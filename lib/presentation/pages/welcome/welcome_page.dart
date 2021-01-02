@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../data/services/shared_preferences_service.dart';
 import '../../../utils/constants/assets.dart';
 import '../../../utils/extensions/responsive_helper.dart';
+import '../../../data/services/preferences_store_service.dart';
 
 class WelcomPage extends StatelessWidget {
   @override
@@ -30,7 +30,7 @@ class WelcomPage extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(54),
               onTap: () async {
-                (await SharedPreferencesService.instance).setUserLogged();
+                PreferencesStoreService.instance.setUserLogged();
                 Navigator.pushReplacementNamed(context, '/home');
               },
               child: Padding(
