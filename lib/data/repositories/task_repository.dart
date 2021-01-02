@@ -32,66 +32,27 @@
  *OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'package:hive/hive.dart';
+import 'package:kanza/data/models/task.dart';
 
-import '../models/task.dart';
+import '../contractors/base_task_repository.dart';
+import '../services/task_store_service.dart';
 
-class TaskStoreService {
-  TaskStoreService._();
+class TaskRepository implements ITaskRepository {
+  final _taskStoreService = TaskStoreService.instance;
 
-  static TaskStoreService _instance;
-  static TaskStoreService get instance => _instance;
+  @override
+  Future<void> addNewTask(Task task) => _taskStoreService.addNewTask(task);
 
-  Box<List<Task>> _tasksBox;
+  @override
+  Future<void> deleteTask(String taskId) =>
+      _taskStoreService.deleteTask(taskId);
 
-  List<Task> _tasks = [];
-  List<Task> _archievedTasks = [];
+  @override
+  List<Task> get tasks => _taskStoreService.tasks;
 
-  static Future<void> init() async {
-    if (_instance == null) {
-      final box = await Hive.openBox<List<Task>>('tasksBox');
-      _instance = TaskStoreService._();
-      _instance._tasksBox = box;
-    }
+  @override
+  Future<List<Task>> getArchievedTasks() {
+    // TODO: implement getArchievedTasks
+    throw UnimplementedError();
   }
-
-  List<Task> get tasks => [..._tasks];
-
-  List<Task> get archivedTasks => [..._archievedTasks];
-
-  Future<void> addNewTask(Task task) {
-    _tasks.add(task);
-    return _tasksBox.put('tasks', _tasks);
-  }
-
-  Future<void> addToArchievedTask(Task task) {
-    _tasks.removeWhere((t) => t.id == task.id);
-    _archievedTasks.add(task);
-
-    _tasksBox.put('tasks', _tasks);
-    return _tasksBox.put('archievedTasks', _archievedTasks);
-  }
-
-  Future<void> deleteTask(String taskId) {
-    _tasks.removeWhere((task) => task.id == taskId);
-    return _tasksBox.put('tasks', _tasks);
-  }
-
-  Future<void> unarchiveTask(Task task) {
-    _archievedTasks.removeWhere((t) => t.id == task.id);
-    _tasks.add(task);
-
-    _tasksBox.put('archievedTasks', _archievedTasks);
-    return _tasksBox.put('tasks', _tasks);
-  }
-
-  // List<Task> getAllTasks() {
-  //   _tasks = _tasksBox.get('tasks');
-  //   return _tasks;
-  // }
-
-  // List<Task> getArchievedTasks() {
-  //   _archievedTasks = _tasksBox.get('archievedTasks');
-  //   return _archievedTasks;
-  // }
 }

@@ -1,7 +1,7 @@
 import '../models/task.dart';
 
 abstract class ITaskRepository {
-  Future<List<Task>> getAllTasks();
+  List<Task> get tasks;
 
   Future<void> addNewTask(Task task);
 

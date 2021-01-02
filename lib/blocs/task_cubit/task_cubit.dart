@@ -32,66 +32,44 @@
  *OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'package:hive/hive.dart';
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
-import '../models/task.dart';
+import '../../data/models/task.dart' as task;
+import '../../data/contractors/base_task_repository.dart';
 
-class TaskStoreService {
-  TaskStoreService._();
+part 'task_state.dart';
 
-  static TaskStoreService _instance;
-  static TaskStoreService get instance => _instance;
+class TaskCubit extends Cubit<TaskState> {
+  TaskCubit(this.taskRepository)
+      : assert(taskRepository != null),
+        super(TaskState.initial());
 
-  Box<List<Task>> _tasksBox;
+  final ITaskRepository taskRepository;
 
-  List<Task> _tasks = [];
-  List<Task> _archievedTasks = [];
+  void addTask({
+    String title,
+    String description,
+    task.Category category,
+    DateTime dateTime,
+  }) async {
+    try {
+      emit(state.inProgess());
 
-  static Future<void> init() async {
-    if (_instance == null) {
-      final box = await Hive.openBox<List<Task>>('tasksBox');
-      _instance = TaskStoreService._();
-      _instance._tasksBox = box;
+      await taskRepository.addNewTask(
+        task.Task(
+          id: DateTime.now().toIso8601String(),
+          title: title,
+          details: description,
+          category: category,
+          dateTime: dateTime,
+        ),
+      );
+
+      emit(state.update(taskRepository.tasks));
+    } catch (_) {
+      state.failure('Something went wrong, try again!');
     }
   }
-
-  List<Task> get tasks => [..._tasks];
-
-  List<Task> get archivedTasks => [..._archievedTasks];
-
-  Future<void> addNewTask(Task task) {
-    _tasks.add(task);
-    return _tasksBox.put('tasks', _tasks);
-  }
-
-  Future<void> addToArchievedTask(Task task) {
-    _tasks.removeWhere((t) => t.id == task.id);
-    _archievedTasks.add(task);
-
-    _tasksBox.put('tasks', _tasks);
-    return _tasksBox.put('archievedTasks', _archievedTasks);
-  }
-
-  Future<void> deleteTask(String taskId) {
-    _tasks.removeWhere((task) => task.id == taskId);
-    return _tasksBox.put('tasks', _tasks);
-  }
-
-  Future<void> unarchiveTask(Task task) {
-    _archievedTasks.removeWhere((t) => t.id == task.id);
-    _tasks.add(task);
-
-    _tasksBox.put('archievedTasks', _archievedTasks);
-    return _tasksBox.put('tasks', _tasks);
-  }
-
-  // List<Task> getAllTasks() {
-  //   _tasks = _tasksBox.get('tasks');
-  //   return _tasks;
-  // }
-
-  // List<Task> getArchievedTasks() {
-  //   _archievedTasks = _tasksBox.get('archievedTasks');
-  //   return _archievedTasks;
-  // }
 }
