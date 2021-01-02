@@ -13,13 +13,13 @@ class LoggerService {
 
   static final _colors = <Level, AnsiPen>{
     Level.ALL: AnsiPen(),
-    Level.FINEST: AnsiPen()..blue(),
+    Level.FINEST: AnsiPen()..magenta(),
     Level.FINER: AnsiPen()..green(),
-    Level.FINE: AnsiPen()..green(),
-    Level.INFO: AnsiPen()..green(),
-    Level.CONFIG: AnsiPen()..green(),
-    Level.WARNING: AnsiPen()..yellow(),
-    Level.SEVERE: AnsiPen()..magenta(),
+    Level.FINE: AnsiPen()..blue(),
+    Level.INFO: AnsiPen()..gray(),
+    Level.CONFIG: AnsiPen()..cyan(),
+    Level.WARNING: AnsiPen()..red(),
+    Level.SEVERE: AnsiPen()..red(),
     Level.SHOUT: AnsiPen()..red(),
   };
 

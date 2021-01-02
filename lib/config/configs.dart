@@ -38,26 +38,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:logging/logging.dart';
 
+import '../blocs/kanza_bloc_observer.dart';
 import '../blocs/localization_cubit/localization_cubit.dart';
 import '../blocs/theme_cubit/theme_cubit.dart';
 import '../data/services/preferences_store_service.dart';
-import '../blocs/kanza_bloc_observer.dart';
+import '../data/services/logger_service.dart';
 
 class Configs {
   /// You should await for it to ensure that
   /// all [Services] and configurations
   /// successfully initialized
   static Future<void> initAllSettings() async {
-    await Hive.initFlutter();
-    await PreferencesStoreService.init();
+    LoggerService.init();
 
+    final _logger = Logger('Configs');
+
+    _logger.config('initializing Hive');
+    await Hive.initFlutter();
+
+    _logger.config('initializing PreferencesStoreService');
+    await PreferencesStoreService.init();
     if (kDebugMode) {
+      _logger.config('attach KanzaBlocObserver to Bloc');
       Bloc.observer = KanzaBlocObserver();
       EquatableConfig.stringify = true;
     }
 
+    _logger.config('fetching default Locale');
     locale = await _locale;
+
+    _logger.config('fetching default ThemeMode');
     themeMode = await _themeMode;
   }
 

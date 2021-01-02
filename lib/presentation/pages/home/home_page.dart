@@ -117,33 +117,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: CustomScrollView(
-                  controller: scrollController,
-                  slivers: [
-                    const SliverToBoxAdapter(child: SizedBox(height: 20)),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, i) => TaskItem(
-                          task: Task(
-                            id: 1,
-                            title: 'Title',
-                            details: 'Details',
-                            archived: false,
-                            completed: i == 1,
-                            timeColor: 'FFffdede',
-                            createdAt: DateTime.now(),
-                          ),
-                        ),
-                        childCount: 10,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 15),
+            //     child: CustomScrollView(
+            //       controller: scrollController,
+            //       slivers: [
+            //         const SliverToBoxAdapter(child: SizedBox(height: 20)),
+            //         SliverList(
+            //           delegate: SliverChildBuilderDelegate(
+            //             (context, i) => TaskItem(
+            //               task: Task(
+            //                 id: 1,
+            //                 title: 'Title',
+            //                 details: 'Details',
+            //                 archived: false,
+            //                 completed: i == 1,
+            //                 timeColor: 'FFffdede',
+            //                 createdAt: DateTime.now(),
+            //               ),
+            //             ),
+            //             childCount: 10,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
