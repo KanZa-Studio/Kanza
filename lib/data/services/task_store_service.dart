@@ -44,7 +44,7 @@ class TaskStoreService {
 
   Box<List<Task>> _tasksBox;
 
-  List<Task> _tasks = [];
+  List<Task> _tasks;
   List<Task> _archievedTasks = [];
 
   static Future<void> init() async {
@@ -52,8 +52,11 @@ class TaskStoreService {
       final box = await Hive.openBox<List<Task>>('tasksBox');
       _instance = TaskStoreService._();
       _instance._tasksBox = box;
+      _instance._getAllTasks();
     }
   }
+
+  void _getAllTasks() => _tasks = _tasksBox.get('tasks') ?? [];
 
   List<Task> get tasks => [..._tasks];
 

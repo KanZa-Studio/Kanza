@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../utils/extensions/responsive_helper.dart';
 import '../../../../utils/extensions/theme_extension.dart';
 import '../../../values/colors.dart';
+import '../../../../data/models/task.dart' as task;
 
 class AddTodoBottomSheet extends StatefulWidget {
   @override
@@ -11,6 +12,9 @@ class AddTodoBottomSheet extends StatefulWidget {
 
 class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
   final _calendarButtonKey = GlobalKey();
+  final title = TextEditingController();
+  final description = TextEditingController();
+  task.Category selectedCategory = task.Category.unknown;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +71,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                   SizedBox(
                     width: context.screenWidth * 0.4,
                     child: TextField(
+                      controller: title,
                       style: hintStyle,
                       decoration: InputDecoration(
                         hintText: 'Title',
@@ -138,6 +143,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                   SizedBox(
                     width: context.screenWidth * 0.4,
                     child: TextField(
+                      controller: description,
                       style: hintStyle,
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
@@ -178,5 +184,12 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    title?.dispose();
+    description?.dispose();
+    super.dispose();
   }
 }

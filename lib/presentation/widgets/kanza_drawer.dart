@@ -9,6 +9,7 @@ import '../../utils/constants/assets.dart';
 import '../../utils/extensions/responsive_helper.dart';
 import '../../utils/extensions/theme_extension.dart';
 import '../pages/about/about_page.dart';
+import './custom_drawer_clipper.dart';
 
 class KanzaDrawer extends StatefulWidget {
   @override
@@ -31,9 +32,6 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
               style: Theme.of(context).textTheme.headline3,
             ),
             SizedBox(height: screenHeight * 0.13),
-            _drawerItem(Assets.icons.home, AppLocalizations.of(context).home,
-                screenHeight,
-                themeAware: true),
             _drawerItem(Assets.icons.drawerArchive,
                 AppLocalizations.of(context).archives, screenHeight,
                 themeAware: true),
@@ -43,11 +41,11 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
             _drawerItem(Assets.icons.eng, AppLocalizations.of(context).eng,
                 screenHeight,
                 onPressed: () =>
-                    context.bloc<LocalizationCubit>().changeLocale('en')),
+                    context.read<LocalizationCubit>().changeLocale('en')),
             _drawerItem(Assets.icons.aze, AppLocalizations.of(context).aze,
                 screenHeight,
                 onPressed: () =>
-                    context.bloc<LocalizationCubit>().changeLocale('az')),
+                    context.read<LocalizationCubit>().changeLocale('az')),
             _drawerItem(
               Assets.icons.light,
               Theme.of(context).isDark
@@ -56,7 +54,7 @@ class _KanzaDrawerState extends State<KanzaDrawer> {
               screenHeight,
               themeAware: true,
               onPressed: () => context
-                  .bloc<ThemeCubit>()
+                  .read<ThemeCubit>()
                   .changeTheme(Theme.of(context).isDark ? false : true),
             ),
             Expanded(child: SizedBox()),

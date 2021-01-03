@@ -32,41 +32,6 @@
  *OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import './pages/home/home_page.dart';
-import './pages/welcome/welcome_page.dart';
-import '../blocs/home_cubit/home_cubit.dart';
-import '../data/repositories/task_repository.dart';
-
-class Router {
-  static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
-    switch (routeSettings.name) {
-      case '/home':
-        return MaterialPageRoute(
-          builder: (_) => RepositoryProvider<TaskRepository>(
-            create: (_) => TaskRepository(),
-            child: BlocProvider(
-              create: (context) => HomeCubit(
-                context.read<TaskRepository>(),
-              ),
-              child: HomePage(),
-            ),
-          ),
-        );
-      case '/welcome':
-        return MaterialPageRoute(
-          builder: (_) => WelcomPage(),
-        );
-      default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('Page is not provided => ${routeSettings.name}'),
-            ),
-          ),
-        );
-    }
-  }
+class Singleton {
+  const Singleton();
 }

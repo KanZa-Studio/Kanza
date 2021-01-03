@@ -1,5 +1,5 @@
 /*
- * Created on Sat Jan 02 2021
+ * Created on Sun Jan 03 2021
  *
  * BSD 3-Clause License
  *
@@ -32,44 +32,16 @@
  *OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../data/models/task.dart' as task;
-import '../../data/contractors/base_task_repository.dart';
+class NoTask extends StatelessWidget {
+  const NoTask({Key key}) : super(key: key);
 
-part 'task_state.dart';
-
-class TaskCubit extends Cubit<TaskState> {
-  TaskCubit(this.taskRepository)
-      : assert(taskRepository != null),
-        super(TaskState.initial());
-
-  final ITaskRepository taskRepository;
-
-  void addTask({
-    String title,
-    String description,
-    task.Category category,
-    DateTime dateTime,
-  }) async {
-    try {
-      emit(state.inProgess());
-
-      await taskRepository.addNewTask(
-        task.Task(
-          id: DateTime.now().toIso8601String(),
-          title: title,
-          details: description,
-          category: category,
-          dateTime: dateTime,
-        ),
-      );
-
-      emit(state.update(taskRepository.tasks));
-    } catch (_) {
-      state.failure('Something went wrong, try again!');
-    }
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SvgPicture.asset('assets/icons/no_task.svg'),
+    );
   }
 }

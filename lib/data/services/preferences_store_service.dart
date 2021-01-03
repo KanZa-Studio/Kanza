@@ -34,6 +34,8 @@
 
 import 'package:hive/hive.dart';
 
+import '../annotations.dart' show Singleton;
+
 class PreferencesStoreService {
   PreferencesStoreService._();
 
@@ -48,6 +50,8 @@ class PreferencesStoreService {
   }
 
   static PreferencesStoreService _instance;
+
+  @Singleton()
   static PreferencesStoreService get instance => _instance;
 
   Box _preferencesBox;

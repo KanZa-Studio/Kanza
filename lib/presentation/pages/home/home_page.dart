@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanza/presentation/pages/home/widgets/task_item.dart';
+import 'package:kanza/blocs/home_cubit/home_cubit.dart';
 
 import './widgets/custom_fab.dart';
+import './widgets/no_task.dart';
+import './widgets/task_item.dart';
 import './widgets/time_item.dart';
 import '../../../utils/constants/assets.dart';
 import '../../../utils/extensions/theme_extension.dart';
@@ -24,7 +27,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     animationController = AnimationController(
       duration: Duration(milliseconds: 500),
       vsync: this,
@@ -48,6 +50,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
       });
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (mounted) {
+      context.read<HomeCubit>().fetchAllTasks();
+    }
   }
 
   @override
@@ -116,40 +126,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            TaskItem(),
-            // Expanded(
-            //   child: SvgPicture.asset(
-            //     'assets/icons/no_item.svg',
-            //     fit: BoxFit.contain,
-            //   ),
-            // ),
-            // Expanded(
-            //   child: Padding(
-            //     padding: const EdgeInsets.symmetric(horizontal: 15),
-            //     child: CustomScrollView(
-            //       controller: scrollController,
-            //       slivers: [
-            //         const SliverToBoxAdapter(child: SizedBox(height: 20)),
-            //         SliverList(
-            //           delegate: SliverChildBuilderDelegate(
-            //             (context, i) => TaskItem(
-            //               task: Task(
-            //                 id: 1,
-            //                 title: 'Title',
-            //                 details: 'Details',
-            //                 archived: false,
-            //                 completed: i == 1,
-            //                 timeColor: 'FFffdede',
-            //                 createdAt: DateTime.now(),
-            //               ),
-            //             ),
-            //             childCount: 10,
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            BlocBuilder<HomeCubit, HomeState>(builder: (_, state) {
+              if (state.tasks.isEmpty) {
+                return NoTask();
+              }
+
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: CustomScrollView(
+                    controller: scrollController,
+                    slivers: [
+                      const SliverToBoxAdapter(child: SizedBox(height: 20)),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (_, i) => TaskItem(),
+                          childCount: state.tasks.length,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),

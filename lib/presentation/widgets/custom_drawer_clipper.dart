@@ -32,41 +32,32 @@
  *OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/cupertino.dart';
 
-import './pages/home/home_page.dart';
-import './pages/welcome/welcome_page.dart';
-import '../blocs/home_cubit/home_cubit.dart';
-import '../data/repositories/task_repository.dart';
+class CustomDrawerClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final oneSideOvalPath = Path();
 
-class Router {
-  static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
-    switch (routeSettings.name) {
-      case '/home':
-        return MaterialPageRoute(
-          builder: (_) => RepositoryProvider<TaskRepository>(
-            create: (_) => TaskRepository(),
-            child: BlocProvider(
-              create: (context) => HomeCubit(
-                context.read<TaskRepository>(),
-              ),
-              child: HomePage(),
-            ),
-          ),
-        );
-      case '/welcome':
-        return MaterialPageRoute(
-          builder: (_) => WelcomPage(),
-        );
-      default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('Page is not provided => ${routeSettings.name}'),
-            ),
-          ),
-        );
-    }
+    final part = size.width * 0.3;
+
+    oneSideOvalPath.moveTo(size.width, 0);
+
+    oneSideOvalPath.quadraticBezierTo(
+      size.width,
+      size.height / 2,
+      size.width - part,
+      size.height,
+    );
+
+    oneSideOvalPath.lineTo(0, size.height);
+    oneSideOvalPath.lineTo(0, 0);
+
+    oneSideOvalPath.close();
+
+    return oneSideOvalPath;
   }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

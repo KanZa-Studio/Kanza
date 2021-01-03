@@ -1,5 +1,5 @@
 /*
- * Created on Sun Jan 03 2021
+ * Created on Sat Jan 02 2021
  *
  * BSD 3-Clause License
  *
@@ -32,41 +32,44 @@
  *OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
-import './pages/home/home_page.dart';
-import './pages/welcome/welcome_page.dart';
-import '../blocs/home_cubit/home_cubit.dart';
-import '../data/repositories/task_repository.dart';
+import '../../data/contractors/base_task_repository.dart';
+import '../../data/models/task.dart' as task;
 
-class Router {
-  static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
-    switch (routeSettings.name) {
-      case '/home':
-        return MaterialPageRoute(
-          builder: (_) => RepositoryProvider<TaskRepository>(
-            create: (_) => TaskRepository(),
-            child: BlocProvider(
-              create: (context) => HomeCubit(
-                context.read<TaskRepository>(),
-              ),
-              child: HomePage(),
-            ),
-          ),
-        );
-      case '/welcome':
-        return MaterialPageRoute(
-          builder: (_) => WelcomPage(),
-        );
-      default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('Page is not provided => ${routeSettings.name}'),
-            ),
-          ),
-        );
+part 'home_state.dart';
+
+class HomeCubit extends Cubit<HomeState> {
+  HomeCubit(this.taskRepository)
+      : assert(taskRepository != null),
+        super(HomeState.initial());
+
+  final ITaskRepository taskRepository;
+
+  void fetchAllTasks() => emit(state.update(taskRepository.tasks));
+
+  void addTask({
+    String title,
+    String description,
+    task.Category category,
+    DateTime dateTime,
+  }) async {
+    try {
+      await taskRepository.addNewTask(
+        task.Task(
+          id: DateTime.now().toIso8601String(),
+          title: title,
+          details: description,
+          category: category,
+          dateTime: dateTime,
+        ),
+      );
+
+      emit(state.update(taskRepository.tasks));
+    } catch (_) {
+      state.failure('Something went wrong, try again!');
     }
   }
 }
